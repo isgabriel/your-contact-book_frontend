@@ -5,48 +5,23 @@
 // import { useForm } from "react-hook-form";
 // import { zodResolver } from "@hookform/resolvers/zod";
 // import { userLoginSchema } from "../../schemas/users.schemas";
+import { useNavigate } from "react-router-dom";
 import { FormLogin } from "../../components/Forms/FormLogin";
 
 const LoginPage = () => {
-    // const { login } = useContext(UserContext);
-
-    // const {
-    //     register,
-    //     handleSubmit,
-    //     formState: { errors },
-    //     reset,
-    // } = useForm({ resolver: zodResolver(userLoginSchema), mode: "all" });
-
-    // const onSubmit = (data: any) => {
-    //     login(data);
-    //     console.log(data);
-    // };
-
+    const navigate = useNavigate();
+    const goToRegister = () => {
+        navigate("/register");
+    };
     return (
         <>
             <section>
                 <h1>Login</h1>
                 <FormLogin />
-                {/* <form onSubmit={handleSubmit(onSubmit)}>
-                    <div className="form-group">
-                        <InputField
-                            required={true}
-                            errors={errors.email?.message}
-                            register={register("email")}
-                            placeholder="Email"
-                        />
-                        <InputField
-                            required={true}
-                            type="password"
-                            errors={errors.password?.message}
-                            register={register("password")}
-                            placeholder="Senha"
-                        />
-                        <button type="submit" className="btn btn-outline-dark">
-                            Entrar
-                        </button>
-                    </div>
-                </form> */}
+                <div>
+                    <h4>Não possui uma conta?</h4>
+                    <button onClick={goToRegister}>Registre-se</button>
+                </div>
             </section>
         </>
     );
