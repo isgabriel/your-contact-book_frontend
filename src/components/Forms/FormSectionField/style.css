@@ -1,0 +1,35 @@
+.divFormSectionField {
+    display: flex;
+    flex-direction: column;
+    > div > input {
+        padding: 18px 18px;
+        border-radius: 20px;
+        background-color: #ffffff;
+
+        width: 70%;
+        max-width: 410px;
+        max-height: 64px;
+
+        display: flex;
+        justify-content: flex-start;
+        gap: 12px;
+
+        font-size: var(--text-1);
+        font-weight: var(--Medium);
+
+        user-select: none;
+
+        overflow: hidden;
+
+        @media (min-width: 500px) {
+            padding: 22px 18px;
+            width: 60%;
+            max-height: 20px;
+        }
+    }
+    > p {
+        color: rgb(168, 28, 28);
+        font-size: 12px;
+        font-style: italic;
+    }
+}
