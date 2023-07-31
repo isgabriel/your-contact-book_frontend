@@ -1,24 +1,31 @@
-import { iFormProps } from "../type";
-import "./style.css";
-
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-const InputField = ({
+interface iInputFieldProps {
+    type?: string;
+    placeholder?: string;
+    errors?: any;
+    register?: object;
+    value?: string;
+    maxLength?: number;
+    required?: boolean;
+    onChange?: React.ChangeEventHandler<HTMLInputElement>;
+}
+
+export const InputField = ({
     type,
     placeholder,
-    // errors,
+
     onChange,
     register,
     value,
     maxLength,
     required,
-}: iFormProps) => {
+}: iInputFieldProps) => {
     return (
         <>
             <input
                 value={value}
                 maxLength={maxLength}
-                // className={errors ? "unvalid" : ""}
                 {...register}
                 onChange={onChange}
                 required={required}
@@ -27,24 +34,5 @@ const InputField = ({
                 placeholder={placeholder}
             />
         </>
-        // <section className="divInputField">
-        //     <div className="mb-1">
-        /* <label htmlFor={placeholder}>{placeholder}</label> */
-        // <input
-        //     value={value}
-        //     maxLength={maxLength}
-        //     className={errors ? "unvalid" : ""}
-        //     {...register}
-        //     onChange={onChange}
-        //     required={required}
-        //     id={placeholder}
-        //     type={type}
-        //     placeholder={placeholder}
-        // />
-        //     </div>
-        //     {errors && <span>{errors}</span>}
-        // </section>
     );
 };
-
-export { InputField };
