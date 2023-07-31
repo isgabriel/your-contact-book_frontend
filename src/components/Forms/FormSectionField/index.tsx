@@ -1,21 +1,12 @@
 import { ReactNode } from "react";
-import "./style.css";
-// import { InputField } from "../InputField";
-// import { LabelField } from "../LabelField";
+import { StyledFormSectionField } from "./style.ts";
+import "./style.ts";
 
 interface iFormSectionField {
     children: ReactNode;
 }
 const FormSectionField = ({ children }: iFormSectionField) => {
-    return (
-        <div className="divFormSectionField">
-            {/* <LabelField />
-
-            <InputField /> */}
-
-            {children}
-        </div>
-    );
+    return <StyledFormSectionField>{children}</StyledFormSectionField>;
 };
 
 export { FormSectionField };
