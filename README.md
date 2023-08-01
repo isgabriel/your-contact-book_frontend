@@ -8,6 +8,7 @@
 <p>Aplicação desenvolvida para gerenciamento de contatos de uma forma simples e eficiente.</p>
 
 -   Link da API: https://github.com/isgabriel/your-contact-book_backend
+-   Link do deploy: https://your-contact-book.vercel.app
 
 ## 🔨 Técnicas e Tecnologias utilizadas no Projeto
 
