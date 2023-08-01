@@ -13,7 +13,7 @@ import { InputField } from "../InputField";
 import { AddContactDiv, Addbutton } from "./style";
 
 const AddContactForm = () => {
-    const [isOpen, setIsOpen] = useState<boolean>(false);
+    const [_, setIsOpen] = useState<boolean>(false);
     const { setPhoneNumber, createContact } = useContext(ContactContext);
 
     const {

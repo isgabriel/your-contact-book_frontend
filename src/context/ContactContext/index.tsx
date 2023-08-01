@@ -69,7 +69,7 @@ const ContactProvider = ({ children }: iContactProviderProps) => {
 
     const createContact = async (data: tContactReq) => {
         try {
-            const request = await api.post("/contacts", data, {
+            await api.post("/contacts", data, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
@@ -83,7 +83,7 @@ const ContactProvider = ({ children }: iContactProviderProps) => {
 
     const deleteContact = async (contactId: number) => {
         try {
-            const request = await api.delete(`/contacts/${contactId}`, {
+            await api.delete(`/contacts/${contactId}`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },

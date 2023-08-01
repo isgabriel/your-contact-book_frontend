@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { createContext } from "react";
 import { iUserProviderProps } from "./interfaces";
@@ -17,7 +18,7 @@ const UserProvider = ({ children }: iUserProviderProps) => {
     const [isLoading, setIsLoading] = useState<boolean>(false);
 
     const [editUserModal, setEditUserModal] = useState<boolean>(false);
-    const [updtedUser, setUpdtedUser] = useState<tUser | null>(null);
+    const [_, setUpdtedUser] = useState<tUser | null>(null);
 
     const navigate = useNavigate();
 
