@@ -5,7 +5,7 @@ import { Modal } from "../../../../components/Modal";
 import { useContext } from "react";
 
 import { UserContext } from "../../../../context/UserContext";
-import { EdituserForm } from "../../../../components/Forms/EdituserForm";
+import { EdituserForm } from "../../../../components/Forms/EditUserForm";
 
 export const EditUserModal = () => {
     const { editUserModal } = useContext(UserContext);

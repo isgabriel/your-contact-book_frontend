@@ -1,10 +1,15 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import copyImg from "../../../../assets/copy-button.svg";
+
 import { UserIcon } from "../../../../components/UserIcon";
 import { tContact } from "../../../../interfaces/contact.interfaces";
-import { StyledContactCard } from "./styled";
+
 import { PopupMenu } from "../../../../components/PopupMenu";
 
 import { useState, useEffect, useRef, useContext } from "react";
 import { ContactContext } from "../../../../context/ContactContext";
+
+import "./style.scss";
 
 const copyToClipboard = (content: string) => {
     const textField = document.createElement("textarea");
@@ -20,7 +25,7 @@ interface iContactCardProps {
 }
 
 export const ContactCard = ({ contact }: iContactCardProps) => {
-    const [displayPopupMenu, setDisplayPopupMenu] = useState<boolean>(false);
+    const [_, setDisplayPopupMenu] = useState<boolean>(false);
     const [deleteCounter, setDeleteCounter] = useState<number>(1);
 
     const { deleteContact, setEditContactModal, setEditContactId } =
@@ -70,45 +75,54 @@ export const ContactCard = ({ contact }: iContactCardProps) => {
     };
 
     return (
-        <StyledContactCard>
-            <header>
-                <div>
+        <li className="contact-card">
+            <section>
+                <div className="icon-div contact-icon-div">
                     <UserIcon initialLetter={contact.name[0]} />
-                    <h3>{contact.name}</h3>
+                    <h3 className="mb-2">{contact.name}</h3>
                 </div>
-                <div className="popup-menu" ref={popupMenuRef}>
-                    <button
-                        onClick={() => setDisplayPopupMenu(!displayPopupMenu)}
-                    >
-                        ...
-                    </button>
-                    <PopupMenu userId={contact.id} display={displayPopupMenu}>
-                        <button onClick={editContactEnableModal}>Editar</button>
-                        <button
-                            onClick={handleDeleteContact}
-                            className={
-                                deleteCounter == 2 ? "red-delete" : "red"
-                            }
-                        >
-                            {deleteCounter === 2 ? "Confirmar" : "Excluir"}
-                        </button>
-                    </PopupMenu>
-                </div>
-            </header>
-            <div className="contact-info">
+            </section>
+            <div className="contact-info mb-3">
                 <div>
-                    <button onClick={handleCopyEmail}>
-                        <img src="https://cdn-icons-png.flaticon.com/512/1621/1621635.png" />
+                    <button onClick={handleCopyEmail} className="button-copy">
+                        <img src={copyImg} className="copy-img" />
                     </button>
                     <span>{contact.email}</span>
                 </div>
                 <div>
-                    <button onClick={handleCopyPhone}>
-                        <img src="https://cdn-icons-png.flaticon.com/512/1621/1621635.png" />
+                    <button onClick={handleCopyPhone} className="button-copy">
+                        <img src={copyImg} className="copy-img" />
                     </button>
                     <span>{contact.phone}</span>
                 </div>
             </div>
-        </StyledContactCard>
+            <div className="div-contacts-buttons" ref={popupMenuRef}>
+                {/* <button
+                        onClick={() => setDisplayPopupMenu(!displayPopupMenu)}
+                    >
+                        ...
+                    </button> */}
+                {/* <PopupMenu userId={contact.id} display={displayPopupMenu}> */}
+                <button
+                    onClick={editContactEnableModal}
+                    className="edit-contact"
+                >
+                    Editar contato
+                </button>
+                <button
+                    onClick={handleDeleteContact}
+                    className={
+                        deleteCounter == 2
+                            ? "confirm-delete-contact"
+                            : "delete-contact"
+                    }
+                >
+                    {deleteCounter === 2
+                        ? "Confirmar e excluir"
+                        : "Excluir contato"}
+                </button>
+                {/* </PopupMenu> */}
+            </div>
+        </li>
     );
 };

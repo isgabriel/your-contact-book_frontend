@@ -1,0 +1,35 @@
+@import "../../../../sass/style.scss";
+
+.section-add-contacts {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.contacts-div {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+.contacts-title {
+    padding: 0;
+}
+.add-contact-btn {
+    background-color: $brand-3-color;
+    color: $white-color;
+
+    padding: 3px 7px;
+
+    border-radius: 50%;
+
+    font-size: $button-1-desktop;
+}
+.div-add-contacts {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.add-contacts-subtitle {
+    font-size: $title-3-mobile;
+    font-weight: $semi-bold;
+}

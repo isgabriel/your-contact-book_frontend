@@ -1,4 +1,5 @@
-import { StyledHeader } from "./styled";
+import menuHamburguer from "../../../../assets/menu-hamburguer.svg";
+import closeMenu from "../../../../assets/close-button.svg";
 import { UserIcon } from "../../../../components/UserIcon";
 
 import { PopupMenu } from "../../../../components/PopupMenu";
@@ -9,6 +10,8 @@ import { useNavigate } from "react-router-dom";
 import { ContactContext } from "../../../../context/ContactContext";
 import { AuthContext } from "../../../../context/AuthContext";
 import { UserContext } from "../../../../context/UserContext";
+
+import "./style.scss";
 
 export const Header = () => {
     const { user } = useContext(AuthContext);
@@ -67,9 +70,9 @@ export const Header = () => {
     };
 
     return (
-        <StyledHeader>
-            <div>
-                <div>
+        <header className="w-100 dashboard-header">
+            <div className="header-div p-3">
+                <div className="icon-div">
                     <UserIcon initialLetter={user?.name[0]} />
                     <h2 className="user-name">{user?.name}</h2>
                 </div>
@@ -77,18 +80,31 @@ export const Header = () => {
                 <div ref={popupMenuRef} className="popup-menu">
                     <button
                         onClick={() => setDisplayPopupMenu(!displayPopupMenu)}
+                        className="button-menu"
                     >
-                        ...
+                        <img
+                            src={displayPopupMenu ? closeMenu : menuHamburguer}
+                        />
                     </button>
                     <PopupMenu display={displayPopupMenu}>
-                        <button onClick={editUserEnableModal}>Editar</button>
-                        <button onClick={logOut} className="red">
+                        <button
+                            onClick={editUserEnableModal}
+                            className="w-100 edit-btn menu-options"
+                        >
+                            Editar
+                        </button>
+                        <button
+                            onClick={logOut}
+                            className="w-100 logout-btn menu-options"
+                        >
                             Sair
                         </button>
                         <button
                             onClick={handleDeleteContact}
                             className={
-                                deleteCounter == 2 ? "red-delete" : "red"
+                                deleteCounter == 2
+                                    ? "w-100 red-delete delete-acc-btn menu-options"
+                                    : "w-100 delete-acc-btn menu-options"
                             }
                         >
                             {deleteCounter === 2
@@ -98,6 +114,6 @@ export const Header = () => {
                     </PopupMenu>
                 </div>
             </div>
-        </StyledHeader>
+        </header>
     );
 };

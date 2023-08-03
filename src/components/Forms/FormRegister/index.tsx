@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { InputField } from "../../../components/Forms/InputField";
-import { StyledButton } from "../../../styles/Button";
 
 import { useForm } from "react-hook-form";
 import { userReqSchema } from "../../../schemas/user.schema";
@@ -14,6 +13,10 @@ import { LabelField } from "../LabelField";
 import { FormSectionField } from "../FormSectionField";
 import { RedirectToOtherPage } from "../RedirectToOtherPage";
 import { useNavigate } from "react-router-dom";
+
+import "../forms.scss";
+import { ErrorMessage } from "../ErrorMessage";
+import { Button } from "../Button";
 
 const FormRegister = () => {
     const { phoneNumber, setPhoneNumber, handlePhoneNumberChange } =
@@ -47,83 +50,117 @@ const FormRegister = () => {
         navigate("/login");
     };
     return (
-        <form onSubmit={handleSubmit(onSubmit)}>
-            <FormSectionField>
-                <LabelField placeholder="Nome" />
-                <InputField
-                    required={true}
-                    errors={errors.name?.message}
-                    register={register("name")}
-                    placeholder="nome"
+        <form onSubmit={handleSubmit(onSubmit)} className="mt-4 form-group">
+            <h3 className="mb-3 subtitle">Cadastro</h3>
+            <div className="form-div">
+                <FormSectionField>
+                    <LabelField placeholder="Nome" />
+                    <InputField
+                        required={true}
+                        errors={errors.name?.message}
+                        register={register("name")}
+                        placeholder="Digite seu nome..."
+                    />
+                    {errors.name && (
+                        <ErrorMessage
+                            className="error-msg"
+                            message={errors.name.message}
+                        />
+                    )}
+                </FormSectionField>
+
+                <FormSectionField>
+                    <LabelField placeholder="Email" />
+                    <InputField
+                        required={true}
+                        errors={errors.email?.message}
+                        register={register("email")}
+                        placeholder="Digite seu email..."
+                    />
+                    {errors.email && (
+                        <ErrorMessage
+                            className="error-msg"
+                            message={errors.email.message}
+                        />
+                    )}
+                </FormSectionField>
+
+                <FormSectionField>
+                    <LabelField placeholder="Senha" />
+
+                    <InputField
+                        required={true}
+                        type="password"
+                        errors={errors.password?.message}
+                        register={register("password")}
+                        placeholder="Digite sua senha..."
+                    />
+
+                    {errors.password && (
+                        <ErrorMessage
+                            className="error-msg"
+                            message={errors.password.message}
+                        />
+                    )}
+                </FormSectionField>
+
+                <FormSectionField>
+                    <LabelField placeholder="Confirmar senha" />
+
+                    <InputField
+                        required={true}
+                        type="password"
+                        errors={errors.confirmPassword?.message}
+                        register={register("confirmPassword")}
+                        placeholder="Repita a senha..."
+                    />
+
+                    {errors.confirmPassword && (
+                        <ErrorMessage
+                            className="error-msg"
+                            message={errors.confirmPassword.message}
+                        />
+                    )}
+                </FormSectionField>
+
+                <FormSectionField>
+                    <LabelField placeholder="Telefone" />
+
+                    <InputField
+                        required={true}
+                        maxLength={16}
+                        onChange={handlePhoneNumberChange}
+                        value={phoneNumber}
+                        errors={errors.phone?.message}
+                        register={register("phone")}
+                        placeholder="Digite seu telefone..."
+                    />
+
+                    {errors.phone && (
+                        <ErrorMessage
+                            className="error-msg"
+                            message={errors.phone.message}
+                        />
+                    )}
+                </FormSectionField>
+            </div>
+
+            <div className="form-btns">
+                <Button
+                    buttonClass="mt-3 mb-3 purple-btn button-common"
+                    buttonType="submit"
+                    buttonText="Cadastrar"
                 />
-                {errors.name && <p>{errors.name.message}</p>}
-            </FormSectionField>
-
-            <FormSectionField>
-                <LabelField placeholder="Email" />
-                <InputField
-                    required={true}
-                    errors={errors.email?.message}
-                    register={register("email")}
-                    placeholder="email"
-                />
-                {errors.email && <p>{errors.email.message}</p>}
-            </FormSectionField>
-
-            <FormSectionField>
-                <LabelField placeholder="Senha" />
-
-                <InputField
-                    required={true}
-                    type="password"
-                    errors={errors.password?.message}
-                    register={register("password")}
-                    placeholder="senha"
-                />
-
-                {errors.password && <p>{errors.password.message}</p>}
-            </FormSectionField>
-
-            <FormSectionField>
-                <LabelField placeholder="Confirmar senha" />
-
-                <InputField
-                    required={true}
-                    type="password"
-                    errors={errors.confirmPassword?.message}
-                    register={register("confirmPassword")}
-                    placeholder="confirmar senha"
-                />
-
-                {errors.confirmPassword && (
-                    <p>{errors.confirmPassword.message}</p>
-                )}
-            </FormSectionField>
-
-            <FormSectionField>
-                <LabelField placeholder="Telefone" />
-
-                <InputField
-                    required={true}
-                    maxLength={16}
-                    onChange={handlePhoneNumberChange}
-                    value={phoneNumber}
-                    errors={errors.phone?.message}
-                    register={register("phone")}
-                    placeholder="telefone"
-                />
-
-                {errors.phone && <p>{errors.phone.message}</p>}
-            </FormSectionField>
-
-            <StyledButton type="submit">Cadastrar</StyledButton>
-
-            <RedirectToOtherPage>
-                <h4>Já possui conta?</h4>
-                <button onClick={goToLogin} className="redirect-button">
-                    Ir para Login
-                </button>
-            </RedirectToOtherPage>
+                <h4 className="text-center">OU</h4>
+                <RedirectToOtherPage>
+                    <Button
+                        onClick={goToLogin}
+                        buttonClass="mt-3 blue-btn button-common"
+                        buttonType="button"
+                        buttonText="Ir para Login"
+                    />
+                </RedirectToOtherPage>
+            </div>
         </form>
     );
 };

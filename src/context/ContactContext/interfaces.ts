@@ -22,6 +22,8 @@ interface iContactContextProps {
     editContactId: number | null;
     setEditContactId: React.Dispatch<React.SetStateAction<number | null>>;
     updateContact: (data: tContactUpdate) => Promise<void>;
+    isOpen: boolean;
+    setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export type { iContactProviderProps, iContactContextProps };

@@ -1,29 +1,31 @@
-import { useState } from "react";
-import { StyledAddContact } from "./styled";
-import { StyledButton } from "../../../../styles/Button";
+import { useContext } from "react";
+import "./style.scss";
 
 import { AddContactForm } from "../../../../components/Forms/AddContactForm";
+import { ContactContext } from "../../../../context/ContactContext";
 
 export const AddContact = () => {
-    const [isOpen, setIsOpen] = useState<boolean>(false);
+    const { isOpen, setIsOpen } = useContext(ContactContext);
 
     return (
-        <StyledAddContact>
-            <header>
-                <h1>Contatos</h1>
-                <StyledButton
+        <section className="p-3 section-add-contacts">
+            <div className="contacts-div ">
+                <h1 className=" subtitle contacts-title">Contatos</h1>
+                <button
                     onClick={() => setIsOpen(!isOpen)}
-                    className={isOpen ? "open" : ""}
+                    className={
+                        isOpen ? "open add-contact-btn" : "add-contact-btn"
+                    }
                 >
-                    {isOpen ? "Cancelar" : "Adicionar"}
-                </StyledButton>
-            </header>
+                    {isOpen ? "x" : "+"}
+                </button>
+            </div>
             {isOpen && (
-                <>
-                    <h3>Adicionar contato</h3>
+                <div className="div-add-contacts">
+                    <h3 className="add-contacts-subtitle">Adicionar contato</h3>
                     <AddContactForm />
-                </>
+                </div>
             )}
-        </StyledAddContact>
+        </section>
     );
 };

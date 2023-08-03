@@ -24,8 +24,13 @@ const AuthProvider = ({ children }: iAuthProviderProps) => {
     const [user, setUser] = useState<tUser | null>(null);
 
     const { setContacts } = useContext(ContactContext);
-    const { setIsLoading, setStatus, setErrorMessage, disableStatus } =
-        useContext(UserContext);
+    const {
+        setUpdtedUser,
+        setIsLoading,
+        setStatus,
+        setErrorMessage,
+        disableStatus,
+    } = useContext(UserContext);
 
     const userId = localStorage.getItem("@contact-book: userId");
     const token = localStorage.getItem("@contact-book: accessToken");
@@ -41,6 +46,7 @@ const AuthProvider = ({ children }: iAuthProviderProps) => {
             });
 
             setUser(request.data);
+            setUpdtedUser(request.data);
             setContacts(request.data.contacts);
 
             navigate("/dashboard");

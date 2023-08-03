@@ -1,12 +1,11 @@
 import { ReactNode } from "react";
-import { StyledFormSectionField } from "./style.ts";
-import "./style.ts";
+import "./style.scss";
 
 interface iFormSectionField {
     children: ReactNode;
 }
 const FormSectionField = ({ children }: iFormSectionField) => {
-    return <StyledFormSectionField>{children}</StyledFormSectionField>;
+    return <div className="">{children}</div>;
 };
 
 export { FormSectionField };
