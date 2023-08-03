@@ -14,8 +14,8 @@
 
 -   `React`
 -   `Typescript`
--   `Styled-Components`
 -   `Bootstrap`
+-   `Sass`
 -   `Github`
 -   `Git`
 -   `Bibliotecas do react`
