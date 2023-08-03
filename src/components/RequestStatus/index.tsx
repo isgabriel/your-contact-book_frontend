@@ -1,6 +1,5 @@
 import { useContext } from "react";
 import { UserContext } from "../../context/UserContext";
-import { StyledRequestStatus } from "./styled";
 
 export const RequestStatus = () => {
     const { isLoading, status, errorMessage } = useContext(UserContext);
@@ -9,7 +8,7 @@ export const RequestStatus = () => {
         return <></>;
     }
     return (
-        <StyledRequestStatus loading={isLoading}>
+        <figure>
             {isLoading && (
                 <img
                     src="https://www.freeiconspng.com/thumbs/load-icon-png/load-icon-png-27.png"
@@ -31,6 +30,6 @@ export const RequestStatus = () => {
                     <p>{errorMessage}</p>
                 </>
             )}
-        </StyledRequestStatus>
+        </figure>
     );
 };

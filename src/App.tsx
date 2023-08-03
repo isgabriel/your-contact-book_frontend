@@ -1,12 +1,12 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import { AppRoutes } from "./routes";
-import { GlobalStyles } from "./styles/GlobalStyles";
+
+import "./sass/style.scss";
 
 function App() {
     return (
         <>
             <AppRoutes />
-            <GlobalStyles />
         </>
     );
 }

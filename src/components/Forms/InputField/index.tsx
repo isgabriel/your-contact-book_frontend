@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import "./style.scss";
 
 interface iInputFieldProps {
     type?: string;
@@ -32,6 +33,7 @@ export const InputField = ({
                 id={placeholder}
                 type={type}
                 placeholder={placeholder}
+                className="form-control mt-1 input-class"
             />
         </>
     );

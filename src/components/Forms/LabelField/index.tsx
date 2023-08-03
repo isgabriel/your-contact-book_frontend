@@ -1,9 +1,14 @@
-import { iFormProps } from "../type";
+import "./style.scss";
 
-const LabelField = ({ placeholder }: iFormProps) => {
+interface iLabelProps {
+    placeholder: string;
+}
+const LabelField = ({ placeholder }: iLabelProps) => {
     return (
         <>
-            <label htmlFor={placeholder}>{placeholder}</label>
+            <label htmlFor={placeholder} className="label">
+                {placeholder}
+            </label>
         </>
     );
 };

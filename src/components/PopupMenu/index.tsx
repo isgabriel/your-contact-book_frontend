@@ -1,18 +1,12 @@
-import { StyledPopupMenu } from "./styled"
-
-interface iPopupMenuProps{
+interface iPopupMenuProps {
     children?: React.ReactNode;
     display: boolean;
     userId?: number;
 }
 
-export const PopupMenu = ({children, display}: iPopupMenuProps) => {
-    if(!display){
-        return <></>
+export const PopupMenu = ({ children, display }: iPopupMenuProps) => {
+    if (!display) {
+        return <></>;
     }
-    return(
-        <StyledPopupMenu>
-            {children}            
-        </StyledPopupMenu>
-    )
-}
+    return <div>{children}</div>;
+};
