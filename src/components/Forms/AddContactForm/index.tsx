@@ -9,12 +9,16 @@ import { tContactReq } from "../../../interfaces/contact.interfaces";
 import { ContactContext } from "../../../context/ContactContext";
 import { LabelField } from "../LabelField";
 import { InputField } from "../InputField";
+import { FormSectionField } from "../FormSectionField";
+import { ErrorMessage } from "../ErrorMessage";
 
-import { AddContactDiv, Addbutton } from "./style";
+import "./style.scss";
+import { Button } from "../Button";
 
 const AddContactForm = () => {
-    const [_, setIsOpen] = useState<boolean>(false);
     const { setPhoneNumber, createContact } = useContext(ContactContext);
+
+    const { handlePhoneNumberChange, phoneNumber } = useContext(ContactContext);
 
     const {
         register,
@@ -35,43 +39,65 @@ const AddContactForm = () => {
         createContact(data);
         reset();
         setPhoneNumber("");
-        setIsOpen(false);
     };
     return (
-        <form onSubmit={handleSubmit(onSubmit)}>
-            <AddContactDiv>
-                <LabelField placeholder="Nome" />
+        <form onSubmit={handleSubmit(onSubmit)} className="form-add-contacts">
+            <div className="inputs-div">
+                <FormSectionField>
+                    <LabelField placeholder="Nome" />
 
-                <InputField
-                    required={true}
-                    errors={errors.name?.message}
-                    register={register("name")}
-                />
-                {errors.name && <p>{errors.name.message}</p>}
-            </AddContactDiv>
+                    <InputField
+                        required={true}
+                        errors={errors.name?.message}
+                        register={register("name")}
+                    />
+                    {errors.name && (
+                        <ErrorMessage
+                            className="error-msg"
+                            message={errors.name.message}
+                        />
+                    )}
+                </FormSectionField>
 
-            <AddContactDiv>
-                <LabelField placeholder="Email" />
+                <FormSectionField>
+                    <LabelField placeholder="Email" />
 
-                <InputField
-                    required={true}
-                    errors={errors.email?.message}
-                    register={register("email")}
-                />
-                {errors.email && <p>{errors.email.message}</p>}
-            </AddContactDiv>
+                    <InputField
+                        required={true}
+                        errors={errors.email?.message}
+                        register={register("email")}
+                    />
+                    {errors.email && (
+                        <ErrorMessage
+                            className="error-msg"
+                            message={errors.email.message}
+                        />
+                    )}
+                </FormSectionField>
 
-            <AddContactDiv>
-                <LabelField placeholder="Telefone" />
+                <FormSectionField>
+                    <LabelField placeholder="Telefone" />
 
-                <InputField
-                    required={true}
-                    errors={errors.phone?.message}
-                    register={register("phone")}
-                />
-                {errors.phone && <p>{errors.phone.message}</p>}
-            </AddContactDiv>
-            <Addbutton type="submit">Adicionar</Addbutton>
+                    <InputField
+                        required={true}
+                        onChange={handlePhoneNumberChange}
+                        value={phoneNumber}
+                        errors={errors.phone?.message}
+                        register={register("phone")}
+                    />
+                    {errors.phone && (
+                        <ErrorMessage
+                            className="error-msg"
+                            message={errors.phone.message}
+                        />
+                    )}
+                </FormSectionField>
+            </div>
+            <Button
+                buttonClass="purple-btn button-common"
+                buttonType="submit"
+                buttonText="Adicionar contato"
+            />
         </form>
     );
 };

@@ -2,8 +2,6 @@
 
 import { InputField } from "../../../components/Forms/InputField";
 
-import { StyledButton } from "../../../styles/Button";
-
 import { useContext } from "react";
 import { ContactContext } from "../../../context/ContactContext";
 
@@ -12,6 +10,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { contactUpdateSchema } from "../../../schemas/contact.schema";
 import { FormSectionField } from "../FormSectionField";
 import { LabelField } from "../LabelField";
+import { Button } from "../Button";
 
 const EditContactForm = () => {
     const { handlePhoneNumberChange, phoneNumber, updateContact } =
@@ -50,7 +49,7 @@ const EditContactForm = () => {
     };
 
     return (
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form onSubmit={handleSubmit(onSubmit)} className="form-modal">
             <FormSectionField>
                 <LabelField placeholder="Nome" />
                 <InputField
@@ -77,7 +76,7 @@ const EditContactForm = () => {
                 <LabelField placeholder="Telefone" />
 
                 <InputField
-                    required={true}
+                    required={false}
                     maxLength={16}
                     onChange={handlePhoneNumberChange}
                     value={phoneNumber}
@@ -88,7 +87,13 @@ const EditContactForm = () => {
 
                 {errors.phone && <p>{errors.phone.message}</p>}
             </FormSectionField>
-            <StyledButton type="submit">Editar</StyledButton>
+            <div className="form-btns">
+                <Button
+                    buttonClass="mt-3 mb-3 purple-btn button-common"
+                    buttonType="submit"
+                    buttonText="Atualizar contato"
+                />
+            </div>
         </form>
     );
 };

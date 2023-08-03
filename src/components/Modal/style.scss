@@ -1,0 +1,34 @@
+@import "../../sass/style.scss";
+.modal-bg {
+    position: absolute;
+    top: 0;
+    background-color: $bg-modal-color;
+    width: 100vw;
+    height: 100vh;
+
+    display: flex;
+    flex-direction: column;
+    place-items: center;
+    justify-content: center;
+}
+.modal-div {
+    background-color: $brand-1-color;
+
+    border-radius: $radius-form;
+
+    padding: 25px 16px;
+
+    width: 90%;
+    max-width: 400px;
+}
+.modal-header {
+    > h2 {
+        font-size: $title-2-mobile;
+        font-weight: $bold;
+    }
+    @media (min-width: 769px) {
+        > h2 {
+            font-size: $title-2-desktop;
+        }
+    }
+}

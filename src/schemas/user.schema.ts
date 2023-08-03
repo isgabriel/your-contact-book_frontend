@@ -21,12 +21,12 @@ const userSchema = z.object({
         .string()
         .max(20)
         .regex(phoneRegex, "Invalid phone number. Example: +00 00 000000000"),
-    createdAt: z.string(),
+    registerDate: z.string(),
     contacts: z.array(noUserContactSchema),
 });
 
 const userReqSchema = userSchema
-    .omit({ id: true, createdAt: true, contacts: true })
+    .omit({ id: true, registerDate: true, contacts: true })
     .extend({ confirmPassword: z.string().max(256) })
     .refine((data) => data.password === data.confirmPassword, {
         message: "As senhas devem coincidir",
@@ -36,7 +36,7 @@ const userReqSchema = userSchema
 const userLoginSchema = userSchema
     .omit({
         id: true,
-        createdAt: true,
+        registerDate: true,
         contacts: true,
         name: true,
         phone: true,
@@ -45,7 +45,7 @@ const userLoginSchema = userSchema
     .extend({ password: z.string() });
 
 const userUpdateSchema = userSchema
-    .omit({ id: true, createdAt: true, contacts: true })
+    .omit({ id: true, registerDate: true, contacts: true })
     .partial();
 
 const noPasswordUserSchema = userSchema.omit({ password: true });

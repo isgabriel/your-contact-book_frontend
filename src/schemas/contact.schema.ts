@@ -14,14 +14,14 @@ const contactSchema: z.ZodObject<any> = z.object({
             phoneRegex,
             "Invalid phone number, must be like: +00 00 000000000"
         ),
-    createdAt: z.string(),
+    registerDate: z.string(),
 });
 
 const noUserContactSchema = contactSchema.omit({ user: true });
 
 const contactReqSchema = noUserContactSchema.omit({
     id: true,
-    createdAt: true,
+    registerDate: true,
 });
 
 const contactUpdateSchema = z.object({

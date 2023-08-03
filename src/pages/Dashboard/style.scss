@@ -1,0 +1,16 @@
+#root {
+    justify-content: flex-start;
+    padding-top: 70px;
+}
+.contacts-list {
+    width: 100%;
+    display: flex;
+    flex-wrap: nowrap;
+
+    gap: 20px;
+    overflow-x: scroll;
+    @media (min-width: 769px) {
+        flex-wrap: wrap;
+        overflow-x: hidden;
+    }
+}

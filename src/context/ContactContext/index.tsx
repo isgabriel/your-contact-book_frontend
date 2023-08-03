@@ -9,6 +9,7 @@ import {
     tContactReq,
     tContactUpdate,
 } from "../../interfaces/contact.interfaces";
+import { useNavigate } from "react-router-dom";
 
 const ContactContext = createContext({} as iContactContextProps);
 
@@ -18,9 +19,12 @@ const ContactProvider = ({ children }: iContactProviderProps) => {
 
     const [editContactModal, setEditContactModal] = useState<boolean>(false);
     const [editContactId, setEditContactId] = useState<number | null>(null);
+    const [isOpen, setIsOpen] = useState<boolean>(false);
 
     const token = localStorage.getItem("@contact-book: accessToken");
     const userId = localStorage.getItem("@contact-book: userId");
+
+    const navigate = useNavigate();
 
     const handlePhoneNumberChange = (
         e: React.ChangeEvent<HTMLInputElement>
@@ -49,7 +53,7 @@ const ContactProvider = ({ children }: iContactProviderProps) => {
     const getContacts = async () => {
         try {
             const request = await api.get<Promise<tContact[]>>(
-                `/users/${userId}/contacts`,
+                `/users/contacts/${userId}`,
                 {
                     headers: {
                         Authorization: `Bearer ${token}`,
@@ -64,7 +68,28 @@ const ContactProvider = ({ children }: iContactProviderProps) => {
     };
 
     useEffect(() => {
-        getContacts();
+        const loadContacts = async () => {
+            if (!token) {
+                localStorage.removeItem("@contact-book: accessToken");
+                localStorage.removeItem("@contact-book: userId");
+                navigate("/");
+                return;
+            }
+
+            try {
+                const response = await api.get(`/users/contacts/${userId}`, {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                });
+
+                setContacts(response.data);
+            } catch (err) {
+                console.log("ERRO!!", err);
+            }
+        };
+
+        loadContacts();
     }, []);
 
     const createContact = async (data: tContactReq) => {
@@ -126,6 +151,8 @@ const ContactProvider = ({ children }: iContactProviderProps) => {
                 editContactId,
                 setEditContactId,
                 updateContact,
+                isOpen,
+                setIsOpen,
             }}
         >
             {children}

@@ -1,0 +1,8 @@
+.title {
+    font-size: $title-1-mobile;
+    font-weight: $bold;
+
+    @media (min-width: 769px) {
+        font-size: $title-1-desktop;
+    }
+}

@@ -1,17 +1,15 @@
 import { FormLogin } from "../../components/Forms/FormLogin";
-import { StyledForm } from "../../styles/Form";
+
+import "../../sass/style.scss";
 
 const LoginPage = () => {
     return (
-        <StyledForm>
-            <div>
-                <header>
-                    <h1>Your Contack Book</h1>
-                    <h3>Login</h3>
-                </header>
-                <FormLogin />
-            </div>
-        </StyledForm>
+        <>
+            <header>
+                <h1 className="title mt-2">Your Contact Book</h1>
+            </header>
+            <FormLogin />
+        </>
     );
 };
 

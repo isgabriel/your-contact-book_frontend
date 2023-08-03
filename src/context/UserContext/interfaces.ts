@@ -15,6 +15,7 @@ interface iUserContextProps {
     editUserModal: boolean;
     setEditUserModal: React.Dispatch<React.SetStateAction<boolean>>;
     updateUser: (data: tUserUpdate) => Promise<void>;
+    setUpdtedUser: React.Dispatch<React.SetStateAction<tUserUpdate | null>>;
 }
 
 interface iUserProviderProps {

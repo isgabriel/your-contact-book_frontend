@@ -1,14 +1,15 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { createContext } from "react";
+import { createContext, useContext } from "react";
 import { iUserProviderProps } from "./interfaces";
 import { iUserContextProps } from "./interfaces";
-import { tUser, tUserReq, tUserUpdate } from "../../interfaces/user.interfaces";
+import { tUserReq, tUserUpdate } from "../../interfaces/user.interfaces";
 
 import { api } from "../../services/api";
 import { useState } from "react";
 
 import { useNavigate } from "react-router-dom";
+import { ContactContext } from "../ContactContext";
 
 const UserContext = createContext({} as iUserContextProps);
 
@@ -18,7 +19,7 @@ const UserProvider = ({ children }: iUserProviderProps) => {
     const [isLoading, setIsLoading] = useState<boolean>(false);
 
     const [editUserModal, setEditUserModal] = useState<boolean>(false);
-    const [_, setUpdtedUser] = useState<tUser | null>(null);
+    const [_, setUpdtedUser] = useState<tUserUpdate | null>(null);
 
     const navigate = useNavigate();
 
@@ -68,13 +69,14 @@ const UserProvider = ({ children }: iUserProviderProps) => {
 
     const updateUser = async (data: tUserUpdate) => {
         try {
-            const request = await api.patch(`/users/${userId}`, data, {
+            const response = await api.patch(`/users/${Number(userId)}`, data, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
             });
 
-            setUpdtedUser(request.data);
+            setUpdtedUser(response.data);
+            setEditUserModal(!editUserModal);
 
             window.location.reload();
         } catch (err: unknown) {
@@ -97,6 +99,7 @@ const UserProvider = ({ children }: iUserProviderProps) => {
                 editUserModal,
                 setEditUserModal,
                 updateUser,
+                setUpdtedUser,
             }}
         >
             {children}

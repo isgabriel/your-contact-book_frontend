@@ -1,7 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { InputField } from "../../../components/Forms/InputField";
-
-import { StyledButton } from "../../../styles/Button";
+import { InputField } from "../InputField";
 
 import { useContext } from "react";
 import { ContactContext } from "../../../context/ContactContext";
@@ -12,6 +10,8 @@ import { contactUpdateSchema } from "../../../schemas/contact.schema";
 import { UserContext } from "../../../context/UserContext";
 import { FormSectionField } from "../FormSectionField";
 import { LabelField } from "../LabelField";
+import { tUserUpdate } from "../../../interfaces/user.interfaces";
+import { Button } from "../Button";
 
 const EdituserForm = () => {
     const { handlePhoneNumberChange, phoneNumber, setPhoneNumber } =
@@ -34,7 +34,7 @@ const EdituserForm = () => {
         },
     });
 
-    const onSubmit = (data: any) => {
+    const onSubmit = (data: tUserUpdate) => {
         if (data.name == "") {
             delete data.name;
         }
@@ -53,7 +53,7 @@ const EdituserForm = () => {
     };
 
     return (
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form onSubmit={handleSubmit(onSubmit)} className="form-modal">
             <FormSectionField>
                 <LabelField placeholder="Nome" />
                 <InputField
@@ -106,7 +106,13 @@ const EdituserForm = () => {
                 {errors.password && <p>{errors.password.message}</p>}
             </FormSectionField>
 
-            <StyledButton type="submit">Editar</StyledButton>
+            <div className="form-btns">
+                <Button
+                    buttonClass="mt-3 mb-3 purple-btn button-common"
+                    buttonType="submit"
+                    buttonText="Atualizar informações"
+                />
+            </div>
         </form>
     );
 };

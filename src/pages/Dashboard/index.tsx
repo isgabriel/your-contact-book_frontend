@@ -1,8 +1,6 @@
 import { Header } from "./components/Header";
-import { StyledContainer } from "../../styles/Container";
 import { AddContact } from "./components/AddContact";
 
-import { StyledContactList } from "./styled";
 import { ContactCard } from "./components/ContactCard";
 
 import { useContext } from "react";
@@ -10,6 +8,7 @@ import { ContactContext } from "../../context/ContactContext";
 
 import { EditContactModal } from "./components/EditContactModal";
 import { EditUserModal } from "./components/EditUserModal";
+import "./style.scss";
 
 const ContactsPage = () => {
     const { contacts } = useContext(ContactContext);
@@ -19,10 +18,10 @@ const ContactsPage = () => {
             <EditContactModal />
             <EditUserModal />
             <Header />
-            <main>
-                <StyledContainer>
+            <main className="w-100">
+                <div>
                     <AddContact />
-                    <StyledContactList>
+                    <ul className="p-3 contacts-list">
                         {contacts.map((contact) => {
                             return (
                                 <ContactCard
@@ -31,8 +30,8 @@ const ContactsPage = () => {
                                 />
                             );
                         })}
-                    </StyledContactList>
-                </StyledContainer>
+                    </ul>
+                </div>
             </main>
         </>
     );

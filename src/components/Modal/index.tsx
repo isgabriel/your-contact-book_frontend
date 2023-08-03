@@ -2,9 +2,10 @@
 import { CloseButton } from "react-bootstrap";
 import { ContactContext } from "../../context/ContactContext";
 import { UserContext } from "../../context/UserContext";
-import { StyledModal } from "./styled";
 
 import { useContext, useEffect, useRef } from "react";
+import "./style.scss";
+import { createPortal } from "react-dom";
 
 interface iModalProps {
     children: React.ReactNode;
@@ -12,7 +13,7 @@ interface iModalProps {
 }
 
 export const Modal = ({ children, title }: iModalProps) => {
-    const { setEditContactModal, setEditContactId } =
+    const { setIsOpen, setEditContactModal, setEditContactId } =
         useContext(ContactContext);
     const { setEditUserModal } = useContext(UserContext);
 
@@ -24,6 +25,7 @@ export const Modal = ({ children, title }: iModalProps) => {
                 modalRef.current &&
                 !modalRef.current.contains(event.target as Node)
             ) {
+                setIsOpen(false);
                 setEditContactModal(false);
                 setEditUserModal(false);
                 setEditContactId(null);
@@ -36,17 +38,21 @@ export const Modal = ({ children, title }: iModalProps) => {
     }, []);
 
     const closeModal = () => {
-        window.location.reload();
+        setIsOpen(false);
+        setEditContactModal(false);
+        setEditUserModal(false);
+        setEditContactId(null);
     };
-    return (
-        <StyledModal>
+    return createPortal(
+        <div className="modal-bg">
             <div ref={modalRef} className="modal-div">
-                <header className="modal-header">
+                <section className="mb-5 modal-header ">
                     <h2>{title}</h2>
                     <CloseButton onClick={closeModal} />
-                </header>
+                </section>
                 {children}
             </div>
-        </StyledModal>
+        </div>,
+        document.body
     );
 };
