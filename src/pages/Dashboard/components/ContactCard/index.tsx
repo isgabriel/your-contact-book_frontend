@@ -4,8 +4,6 @@ import copyImg from "../../../../assets/copy-button.svg";
 import { UserIcon } from "../../../../components/UserIcon";
 import { tContact } from "../../../../interfaces/contact.interfaces";
 
-import { PopupMenu } from "../../../../components/PopupMenu";
-
 import { useState, useEffect, useRef, useContext } from "react";
 import { ContactContext } from "../../../../context/ContactContext";
 
@@ -97,12 +95,6 @@ export const ContactCard = ({ contact }: iContactCardProps) => {
                 </div>
             </div>
             <div className="div-contacts-buttons" ref={popupMenuRef}>
-                {/* <button
-                        onClick={() => setDisplayPopupMenu(!displayPopupMenu)}
-                    >
-                        ...
-                    </button> */}
-                {/* <PopupMenu userId={contact.id} display={displayPopupMenu}> */}
                 <button
                     onClick={editContactEnableModal}
                     className="edit-contact"
@@ -121,7 +113,6 @@ export const ContactCard = ({ contact }: iContactCardProps) => {
                         ? "Confirmar e excluir"
                         : "Excluir contato"}
                 </button>
-                {/* </PopupMenu> */}
             </div>
         </li>
     );

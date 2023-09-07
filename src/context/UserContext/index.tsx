@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { createContext, useContext } from "react";
+import { createContext } from "react";
 import { iUserProviderProps } from "./interfaces";
 import { iUserContextProps } from "./interfaces";
 import { tUserReq, tUserUpdate } from "../../interfaces/user.interfaces";
@@ -9,7 +9,6 @@ import { api } from "../../services/api";
 import { useState } from "react";
 
 import { useNavigate } from "react-router-dom";
-import { ContactContext } from "../ContactContext";
 
 const UserContext = createContext({} as iUserContextProps);
 
