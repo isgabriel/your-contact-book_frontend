@@ -11,7 +11,7 @@ import { UserContext } from "../../../context/UserContext";
 import { FormSectionField } from "../FormSectionField";
 import { LabelField } from "../LabelField";
 import { tUserUpdate } from "../../../interfaces/user.interfaces";
-import { Button } from "../Button";
+import { Button } from "../../Button";
 
 const EdituserForm = () => {
     const { handlePhoneNumberChange, phoneNumber, setPhoneNumber } =
@@ -108,9 +108,9 @@ const EdituserForm = () => {
 
             <div className="form-btns">
                 <Button
-                    buttonClass="mt-3 mb-3 purple-btn button-common"
-                    buttonType="submit"
-                    buttonText="Atualizar informações"
+                    className="mt-3 mb-3 purple-btn button-common"
+                    type="submit"
+                    text="Atualizar informações"
                 />
             </div>
         </form>

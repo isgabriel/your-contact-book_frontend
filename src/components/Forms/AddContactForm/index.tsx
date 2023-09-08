@@ -13,7 +13,7 @@ import { FormSectionField } from "../FormSectionField";
 import { ErrorMessage } from "../ErrorMessage";
 
 import "./style.scss";
-import { Button } from "../Button";
+import { Button } from "../../Button";
 
 const AddContactForm = () => {
     const { setPhoneNumber, createContact } = useContext(ContactContext);
@@ -94,9 +94,9 @@ const AddContactForm = () => {
                 </FormSectionField>
             </div>
             <Button
-                buttonClass="purple-btn button-common"
-                buttonType="submit"
-                buttonText="Adicionar contato"
+                className="purple-btn button-common"
+                type="submit"
+                text="Adicionar contato"
             />
         </form>
     );

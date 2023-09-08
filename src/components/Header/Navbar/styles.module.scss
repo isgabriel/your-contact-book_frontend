@@ -1,0 +1,8 @@
+@use "/src/sass/globals.scss" as *;
+
+.loggedNavbar {
+    @include navBasic();
+}
+.notLoggedNavbar {
+    @include navBasic();
+}

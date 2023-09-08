@@ -1,6 +1,6 @@
 import { FormLogin } from "../../components/Forms/FormLogin";
 
-import "../../sass/style.scss";
+import "../../sass/globals.scss";
 
 const LoginPage = () => {
     return (

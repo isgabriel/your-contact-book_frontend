@@ -1,8 +1,6 @@
-@import "../../sass/style.scss";
+@import "../../sass/globals.scss";
 
 .form-group {
-    background-color: $brand-2-color;
-
     width: 80%;
     max-width: 400px;
 
@@ -12,12 +10,10 @@
 }
 
 .subtitle {
-    font-size: $title-2-mobile;
     font-weight: 600;
     padding-left: 5px;
 
     @media (min-width: 769px) {
-        font-size: $title-2-desktop;
     }
 }
 .form-div {
@@ -28,9 +24,8 @@
 .error-msg {
     margin-top: 5px;
     padding-left: 5px;
-    font-size: $error-size;
+
     font-style: italic;
-    color: $error-color;
 }
 .form-btns {
     width: 100%;

@@ -1,8 +1,8 @@
-@import "../../sass/style.scss";
+@import "../../sass/globals.scss";
 .modal-bg {
     position: absolute;
     top: 0;
-    background-color: $bg-modal-color;
+    // background-color: $bg-modal-color;
     width: 100vw;
     height: 100vh;
 
@@ -23,12 +23,10 @@
 }
 .modal-header {
     > h2 {
-        font-size: $title-2-mobile;
-        font-weight: $bold;
+        font-weight: $bold-weight;
     }
     @media (min-width: 769px) {
         > h2 {
-            font-size: $title-2-desktop;
         }
     }
 }

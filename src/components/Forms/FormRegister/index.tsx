@@ -16,7 +16,7 @@ import { useNavigate } from "react-router-dom";
 
 import "../forms.scss";
 import { ErrorMessage } from "../ErrorMessage";
-import { Button } from "../Button";
+import { Button } from "../../Button";
 
 const FormRegister = () => {
     const { phoneNumber, setPhoneNumber, handlePhoneNumberChange } =
@@ -147,17 +147,17 @@ const FormRegister = () => {
 
             <div className="form-btns">
                 <Button
-                    buttonClass="mt-3 mb-3 purple-btn button-common"
-                    buttonType="submit"
-                    buttonText="Cadastrar"
+                    className="mt-3 mb-3 purple-btn button-common"
+                    type="submit"
+                    text="Cadastrar"
                 />
                 <h4 className="text-center">OU</h4>
                 <RedirectToOtherPage>
                     <Button
                         onClick={goToLogin}
-                        buttonClass="mt-3 blue-btn button-common"
-                        buttonType="button"
-                        buttonText="Ir para Login"
+                        className="mt-3 blue-btn button-common"
+                        type="button"
+                        text="Ir para Login"
                     />
                 </RedirectToOtherPage>
             </div>

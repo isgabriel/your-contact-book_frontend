@@ -1,5 +1,4 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { CloseButton } from "react-bootstrap";
 import { ContactContext } from "../../context/ContactContext";
 import { UserContext } from "../../context/UserContext";
 
@@ -48,7 +47,7 @@ export const Modal = ({ children, title }: iModalProps) => {
             <div ref={modalRef} className="modal-div">
                 <section className="mb-5 modal-header ">
                     <h2>{title}</h2>
-                    <CloseButton onClick={closeModal} />
+                    <button onClick={closeModal}>X</button>
                 </section>
                 {children}
             </div>

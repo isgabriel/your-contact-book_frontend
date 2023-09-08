@@ -10,7 +10,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { contactUpdateSchema } from "../../../schemas/contact.schema";
 import { FormSectionField } from "../FormSectionField";
 import { LabelField } from "../LabelField";
-import { Button } from "../Button";
+import { Button } from "../../Button";
 
 const EditContactForm = () => {
     const { handlePhoneNumberChange, phoneNumber, updateContact } =
@@ -89,9 +89,9 @@ const EditContactForm = () => {
             </FormSectionField>
             <div className="form-btns">
                 <Button
-                    buttonClass="mt-3 mb-3 purple-btn button-common"
-                    buttonType="submit"
-                    buttonText="Atualizar contato"
+                    className="mt-3 mb-3 purple-btn button-common"
+                    type="submit"
+                    text="Atualizar contato"
                 />
             </div>
         </form>

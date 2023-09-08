@@ -1,0 +1,17 @@
+@use "/src/sass/globals.scss" as *;
+
+.divMainTest {
+    height: 100vh;
+
+    background: url(/src/assets/background-image.svg);
+    background-size: cover;
+    background-position: center;
+
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+
+    color: white;
+
+    padding: 100px 0 0 20px;
+}

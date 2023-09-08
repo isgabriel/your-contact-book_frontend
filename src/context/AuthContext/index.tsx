@@ -52,7 +52,7 @@ const AuthProvider = ({ children }: iAuthProviderProps) => {
             navigate("/dashboard");
         } catch (err) {
             console.log(err);
-            navigate("/login");
+            navigate("/");
         }
     };
 

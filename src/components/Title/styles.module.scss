@@ -1,0 +1,5 @@
+@use "../../sass/globals.scss" as *;
+
+.title {
+    @include titleBasic();
+}

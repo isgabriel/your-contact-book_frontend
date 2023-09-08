@@ -1,0 +1,8 @@
+@use "/src/sass/globals.scss" as *;
+
+.primaryButton {
+    @include ButtonBasic($brand-1-color, $white-color, $brand-2-color);
+}
+.secondaryButton {
+    @include ButtonBasic($brand-3-color, $white-color, $brand-2-color);
+}
