@@ -27,7 +27,8 @@ const Home = () => {
 
             <main className={styles.mainContainerHome}>
                 <Title>
-                    Sua agenda de contatos online completamente segura
+                    Sua <span>agenda de contatos online </span> completamente
+                    segura
                 </Title>
                 <p>
                     Armazene seus contatos de forma fácil e 100% segura na
