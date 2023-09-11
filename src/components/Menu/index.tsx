@@ -17,8 +17,12 @@ const Menu = () => {
                     <Link to="/" onClick={handleMenu}>
                         HOME
                     </Link>
-                    <Link to="/login">CADASTRO</Link>
-                    <Link to="/register">LOGIN</Link>
+                    <Link to="/register" onClick={handleMenu}>
+                        CADASTRO
+                    </Link>
+                    <Link to="/login" onClick={handleMenu}>
+                        LOGIN
+                    </Link>
                 </div>
             </div>
         </section>

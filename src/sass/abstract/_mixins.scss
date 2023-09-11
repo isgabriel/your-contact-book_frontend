@@ -10,7 +10,7 @@
 
     padding: 13px 0;
 
-    width: 280px;
+    max-width: 280px;
 
     border: none;
     border-radius: $radius-button;
@@ -111,4 +111,25 @@
             transition: 0.8s;
         }
     }
+}
+@mixin bgImage() {
+    position: absolute;
+    top: 0;
+    z-index: 1;
+
+    width: 100%;
+    min-height: 100%;
+    height: max-content;
+
+    background: url(/src/assets/background-image.svg);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+@mixin errorMsg() {
+    @include textBasic($text-home-mobile-size, $regular-weight, $red-color);
+
+    margin-top: 5px;
+
+    font-style: italic;
 }

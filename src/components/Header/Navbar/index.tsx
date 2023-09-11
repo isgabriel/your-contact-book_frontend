@@ -17,8 +17,8 @@ const Navbar = () => {
             ) : (
                 <nav className={styles.notLoggedNavbar}>
                     <Link to="/">HOME</Link>
-                    <Link to="/login">CADASTRO</Link>
-                    <Link to="/register">LOGIN</Link>
+                    <Link to="/register">CADASTRO</Link>
+                    <Link to="/login">LOGIN</Link>
                 </nav>
             )}
         </>

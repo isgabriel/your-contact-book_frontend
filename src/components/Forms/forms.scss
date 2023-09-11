@@ -1,35 +1,67 @@
-@import "../../sass/globals.scss";
+@use "../../sass/globals.scss" as *;
 
-.form-group {
-    width: 80%;
-    max-width: 400px;
+.formGroup {
+    position: relative;
+    z-index: 3;
 
-    padding: 25px 12px;
+    width: 100%;
+    min-height: 100vh;
+
+    padding: 100px 20px;
 
     border-radius: $radius-form;
-}
 
-.subtitle {
-    font-weight: 600;
-    padding-left: 5px;
+    backdrop-filter: blur(10px);
+    box-shadow: -10px 2px 11px -1px $background-color;
+
+    @media (min-width: 580px) {
+        .form-btns {
+            flex-direction: row;
+            justify-content: space-between;
+
+            > button {
+                width: 100%;
+            }
+        }
+    }
 
     @media (min-width: 769px) {
+        padding: 160px 50px 50px;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        .form-div {
+            gap: 50px;
+        }
     }
 }
 .form-div {
+    max-width: 700px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.subtitle {
+    @include titleBasic();
+}
+.formInputsDiv {
     display: flex;
     flex-direction: column;
     gap: 20px;
 }
 .error-msg {
-    margin-top: 5px;
-    padding-left: 5px;
-
-    font-style: italic;
+    @include errorMsg();
 }
 .form-btns {
-    width: 100%;
+    width: 90%;
     margin-top: 20px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
 .form-modal {
     display: flex;

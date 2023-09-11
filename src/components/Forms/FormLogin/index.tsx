@@ -10,12 +10,13 @@ import { AuthContext } from "../../../context/AuthContext";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FormSectionField } from "../FormSectionField";
 import { LabelField } from "../LabelField";
-import { RedirectToOtherPage } from "../RedirectToOtherPage";
 import { useNavigate } from "react-router-dom";
 
-import "../forms.scss";
-import { Button } from "../../Button";
 import { ErrorMessage } from "../ErrorMessage";
+import { Button } from "../../Button";
+
+import ButtonStyled from "../../Button/styles.module.scss";
+import "../forms.scss";
 
 const FormLogin = () => {
     const { login } = useContext(AuthContext);
@@ -41,60 +42,66 @@ const FormLogin = () => {
     const goToRegister = () => {
         navigate("/register");
     };
+
     return (
-        <form onSubmit={handleSubmit(onSubmit)} className="mt-5 form-group">
-            <h3 className="mb-3 subtitle">Login</h3>
-
+        <form onSubmit={handleSubmit(onSubmit)} className="formGroup">
             <div className="form-div">
-                <FormSectionField>
-                    <LabelField placeholder="Email" />
+                <h3 className="subtitle">
+                    Peparado para <span>visualizar seus contatos</span> na
+                    Contact Book?
+                </h3>
 
-                    <InputField
-                        required={true}
-                        errors={errors.email?.message}
-                        register={register("email")}
-                        placeholder="Digite seu email..."
-                    />
-                    {errors.email && (
-                        <ErrorMessage
-                            className="error-msg"
-                            message={errors.email.message}
-                        />
-                    )}
-                </FormSectionField>
-                <FormSectionField>
-                    <LabelField placeholder="Senha" />
-                    <InputField
-                        required={true}
-                        type="password"
-                        errors={errors.password?.message}
-                        register={register("password")}
-                        placeholder="Digite sua senha..."
-                    />
-                    {errors.password && (
-                        <ErrorMessage
-                            className="error-msg"
-                            message={errors.password.message}
-                        />
-                    )}
-                </FormSectionField>
-            </div>
+                <div className="formInputsDiv">
+                    <FormSectionField>
+                        <LabelField placeholder="Email" />
 
-            <div className="form-btns">
-                <Button
-                    className="mt-3 mb-3 purple-btn button-common"
-                    type="submit"
-                    text="Entrar"
-                />
-                <h4 className="text-center">OU</h4>
-                <RedirectToOtherPage>
+                        <InputField
+                            required={true}
+                            errors={errors.email?.message}
+                            register={register("email")}
+                            placeholder="Digite seu email..."
+                        />
+                        {errors.email && (
+                            <ErrorMessage
+                                className="error-msg"
+                                message={errors.email.message}
+                            />
+                        )}
+                    </FormSectionField>
+                    <FormSectionField>
+                        <LabelField placeholder="Senha" />
+                        <InputField
+                            required={true}
+                            type="password"
+                            errors={errors.password?.message}
+                            register={register("password")}
+                            placeholder="Digite sua senha..."
+                        />
+                        {errors.password && (
+                            <ErrorMessage
+                                className="error-msg"
+                                message={errors.password.message}
+                            />
+                        )}
+                    </FormSectionField>
+                </div>
+
+                <div className="form-btns">
+                    <Button
+                        className={ButtonStyled.primaryButton}
+                        type="submit"
+                        text="Entrar"
+                    />
+
+                    {/* <RedirectToOtherPage> */}
                     <Button
                         onClick={goToRegister}
-                        className="mt-3 blue-btn button-common"
+                        className={ButtonStyled.secondaryButton}
                         type="button"
                         text="Ir para Cadastro"
                     />
-                </RedirectToOtherPage>
+                    {/* </RedirectToOtherPage> */}
+                </div>
             </div>
         </form>
     );

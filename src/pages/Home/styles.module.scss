@@ -1,17 +1,7 @@
 @use "/src/sass/globals.scss" as *;
 
 .bgImg {
-    position: absolute;
-    top: 0;
-    z-index: 1;
-
-    width: 100%;
-    height: 100vh;
-
-    background: url(/src/assets/background-image.svg);
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
+    @include bgImage();
 }
 .mainContainerHome {
     min-height: 85vh;
@@ -31,7 +21,7 @@
         @include textBasic(
             $text-home-mobile-size,
             $regular-weight,
-            $grey-medium
+            $grey-light
         );
     }
 
