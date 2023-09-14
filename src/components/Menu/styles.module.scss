@@ -28,6 +28,13 @@
 
             text-decoration: none;
         }
+        > nav > button {
+            @include textBasic(
+                $menu-options-logged-size,
+                $bold-weight,
+                $white-color
+            );
+        }
     }
 
     > button {

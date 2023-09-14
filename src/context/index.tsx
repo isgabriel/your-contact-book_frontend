@@ -1,7 +1,7 @@
 import { ContactProvider } from "./ContactContext";
-import { AuthProvider } from "./AuthContext";
 import { UserProvider } from "./UserContext";
 import { MenuProvider } from "./MenuContext";
+import { ModalProvider } from "./ModalContext";
 
 interface iContextProviderProps {
     children: React.ReactNode;
@@ -10,11 +10,11 @@ interface iContextProviderProps {
 export const ContextProvider = ({ children }: iContextProviderProps) => {
     return (
         <MenuProvider>
-            <UserProvider>
-                <ContactProvider>
-                    <AuthProvider>{children}</AuthProvider>
-                </ContactProvider>
-            </UserProvider>
+            <ModalProvider>
+                <UserProvider>
+                    <ContactProvider>{children}</ContactProvider>
+                </UserProvider>
+            </ModalProvider>
         </MenuProvider>
     );
 };

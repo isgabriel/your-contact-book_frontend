@@ -6,3 +6,14 @@
 .secondaryButton {
     @include ButtonBasic($brand-3-color, $white-color, $brand-2-color);
 }
+.redButton {
+    @include ButtonBasic($red-light-color, $white-color, $red-color);
+
+    width: 48%;
+    // max-width: 280px;
+}
+.greyButton {
+    width: 48%;
+
+    @include ButtonBasic($grey-medium, $white-color, $grey-dark);
+}

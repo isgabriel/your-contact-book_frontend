@@ -5,8 +5,6 @@ import { InputField } from "../InputField";
 import { useForm } from "react-hook-form";
 import { userLoginSchema } from "../../../schemas/user.schema";
 
-import { AuthContext } from "../../../context/AuthContext";
-
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FormSectionField } from "../FormSectionField";
 import { LabelField } from "../LabelField";
@@ -16,10 +14,11 @@ import { ErrorMessage } from "../ErrorMessage";
 import { Button } from "../../Button";
 
 import ButtonStyled from "../../Button/styles.module.scss";
-import "../forms.scss";
+import { UserContext } from "../../../context/UserContext";
+import FormStyled from "../forms.module.scss";
 
 const FormLogin = () => {
-    const { login } = useContext(AuthContext);
+    const { login } = useContext(UserContext);
 
     const navigate = useNavigate();
 
@@ -44,14 +43,17 @@ const FormLogin = () => {
     };
 
     return (
-        <form onSubmit={handleSubmit(onSubmit)} className="formGroup">
-            <div className="form-div">
-                <h3 className="subtitle">
+        <form
+            onSubmit={handleSubmit(onSubmit)}
+            className={FormStyled.formGroup}
+        >
+            <div className={FormStyled.formDiv}>
+                <h3 className={FormStyled.subtitle}>
                     Peparado para <span>visualizar seus contatos</span> na
                     Contact Book?
                 </h3>
 
-                <div className="formInputsDiv">
+                <div className={FormStyled.formInputsDiv}>
                     <FormSectionField>
                         <LabelField placeholder="Email" />
 
@@ -86,7 +88,7 @@ const FormLogin = () => {
                     </FormSectionField>
                 </div>
 
-                <div className="form-btns">
+                <div className={FormStyled.formBtns}>
                     <Button
                         className={ButtonStyled.primaryButton}
                         type="submit"

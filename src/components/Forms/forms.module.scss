@@ -15,11 +15,14 @@
     box-shadow: -10px 2px 11px -1px $background-color;
 
     @media (min-width: 580px) {
-        .form-btns {
+        .formBtns {
             flex-direction: row;
             justify-content: space-between;
 
+            max-width: 670px;
+
             > button {
+                min-width: 0%;
                 width: 100%;
             }
         }
@@ -31,12 +34,12 @@
         display: flex;
         flex-direction: column;
         justify-content: center;
-        .form-div {
+        .formDiv {
             gap: 50px;
         }
     }
 }
-.form-div {
+.formDiv {
     max-width: 700px;
 
     display: flex;
@@ -52,23 +55,35 @@
     flex-direction: column;
     gap: 20px;
 }
-.error-msg {
+.errorMsg {
     @include errorMsg();
 }
-.form-btns {
-    width: 90%;
+.buttonsInRow {
+    margin-top: 30px;
+    width: 100%;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.formBtns {
     margin-top: 20px;
 
     display: flex;
     flex-direction: column;
     gap: 20px;
+
+    > button {
+        min-width: 100%;
+    }
 }
-.form-modal {
+.formModal {
     display: flex;
     flex-direction: column;
     gap: 20px;
+    width: 100%;
 
-    .form-btns {
+    .formBtns {
         margin-top: 0;
     }
 }

@@ -1,8 +1,8 @@
 import { Navigate, Outlet } from "react-router-dom";
 
-const ProtectedRoutes = () => {
+const PublicRoutes = () => {
     const token = localStorage.getItem("@ContactBook: TOKEN");
-    return token ? <Outlet /> : <Navigate to="/" />;
+    return !token ? <Outlet /> : <Navigate to="/dashboard" />;
 };
 
-export { ProtectedRoutes };
+export { PublicRoutes };

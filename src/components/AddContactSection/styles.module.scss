@@ -1,0 +1,32 @@
+@use "../../sass/globals.scss" as *;
+
+.addContactsContainer {
+    width: 100%;
+}
+.addContactsDiv {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    > h1 {
+        @include titleBasic();
+    }
+}
+.addBtn {
+    @include ButtonBasic($brand-3-color, $white-color, $brand-1-color);
+
+    padding: 5px 12px;
+    border-radius: 10%;
+
+    // font-size: ;
+}
+.div-add-contacts {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.add-contacts-subtitle {
+    font-weight: $semi-bold-weight;
+}

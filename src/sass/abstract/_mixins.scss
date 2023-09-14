@@ -113,7 +113,7 @@
     }
 }
 @mixin bgImage() {
-    position: absolute;
+    position: fixed;
     top: 0;
     z-index: 1;
 
@@ -132,4 +132,35 @@
     margin-top: 5px;
 
     font-style: italic;
+}
+@mixin headerBasic() {
+    z-index: 6;
+    position: fixed;
+    top: 0;
+
+    width: 100%;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    > div {
+        display: none;
+    }
+
+    @media (min-width: 769px) {
+        background-color: $nav-color;
+        justify-content: center;
+
+        > div {
+            padding: 0 50px;
+
+            width: 100%;
+
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+        }
+    }
 }

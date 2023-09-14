@@ -1,6 +1,6 @@
 @use "../../../sass/globals.scss" as *;
 .inputClass {
-    width: 90%;
+    // width: 90%;
     max-width: 670px;
 
     @include InputBasic($background-color, $text-color, $placeholder-color);

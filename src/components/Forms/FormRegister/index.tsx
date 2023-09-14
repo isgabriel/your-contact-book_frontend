@@ -2,11 +2,10 @@
 import { InputField } from "../../../components/Forms/InputField";
 
 import { useForm } from "react-hook-form";
-import { userReqSchema } from "../../../schemas/user.schema";
+import { userSchema } from "../../../schemas/user.schema";
 
 import { useContext } from "react";
 import { UserContext } from "../../../context/UserContext";
-import { ContactContext } from "../../../context/ContactContext";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { LabelField } from "../LabelField";
@@ -16,13 +15,13 @@ import { useNavigate } from "react-router-dom";
 import { ErrorMessage } from "../ErrorMessage";
 import { Button } from "../../Button";
 
+import { iUser } from "../../../interfaces/user.interfaces";
+
+import FormStyled from "../forms.module.scss";
 import ButtonStyled from "../../Button/styles.module.scss";
-import "../forms.scss";
 
 const FormRegister = () => {
-    const { phoneNumber, setPhoneNumber, handlePhoneNumberChange } =
-        useContext(ContactContext);
-    const { registerUser } = useContext(UserContext);
+    const { signUp } = useContext(UserContext);
 
     const navigate = useNavigate();
 
@@ -30,46 +29,37 @@ const FormRegister = () => {
         register,
         handleSubmit,
         formState: { errors },
-    } = useForm({
-        resolver: zodResolver(userReqSchema),
-        mode: "all",
-        defaultValues: {
-            name: "",
-            email: "",
-            password: "",
-            confirmPassword: "",
-            phone: "",
-        },
-    });
+    } = useForm<iUser>({ resolver: zodResolver(userSchema) });
 
-    const onSubmit = (data: any) => {
-        registerUser(data);
-        setPhoneNumber("");
+    const onSubmit = (data: iUser) => {
+        signUp(data);
     };
 
     const goToLogin = () => {
         navigate("/login");
     };
     return (
-        <form onSubmit={handleSubmit(onSubmit)} className="formGroup">
-            <div className="form-div">
-                <h3 className="subtitle">
+        <form
+            onSubmit={handleSubmit(onSubmit)}
+            className={FormStyled.formGroup}
+        >
+            <div className={FormStyled.formDiv}>
+                <h3 className={FormStyled.subtitle}>
                     Não perca tempo e <span>junte-se a comunidade </span>
                     Contact Book!
                 </h3>
-                <div className="formInputsDiv">
+                <div className={FormStyled.formInputsDiv}>
                     <FormSectionField>
                         <LabelField placeholder="Nome" />
                         <InputField
-                            required={true}
-                            errors={errors.name?.message}
-                            register={register("name")}
+                            errors={errors.fullname?.message}
+                            register={register("fullname")}
                             placeholder="Digite seu nome..."
                         />
-                        {errors.name && (
+                        {errors.fullname && (
                             <ErrorMessage
                                 className="error-msg"
-                                message={errors.name.message}
+                                message={errors.fullname.message}
                             />
                         )}
                     </FormSectionField>
@@ -77,7 +67,6 @@ const FormRegister = () => {
                     <FormSectionField>
                         <LabelField placeholder="Email" />
                         <InputField
-                            required={true}
                             errors={errors.email?.message}
                             register={register("email")}
                             placeholder="Digite seu email..."
@@ -94,7 +83,6 @@ const FormRegister = () => {
                         <LabelField placeholder="Senha" />
 
                         <InputField
-                            required={true}
                             type="password"
                             errors={errors.password?.message}
                             register={register("password")}
@@ -109,11 +97,11 @@ const FormRegister = () => {
                         )}
                     </FormSectionField>
 
-                    <FormSectionField>
+                    {/* <FormSectionField>
                         <LabelField placeholder="Confirmar senha" />
 
                         <InputField
-                            required={true}
+                            
                             type="password"
                             errors={errors.confirmPassword?.message}
                             register={register("confirmPassword")}
@@ -126,31 +114,29 @@ const FormRegister = () => {
                                 message={errors.confirmPassword.message}
                             />
                         )}
-                    </FormSectionField>
+                    </FormSectionField> */}
 
                     <FormSectionField>
                         <LabelField placeholder="Telefone" />
 
                         <InputField
-                            required={true}
-                            maxLength={16}
-                            onChange={handlePhoneNumberChange}
-                            value={phoneNumber}
-                            errors={errors.phone?.message}
-                            register={register("phone")}
+                            // onChange={handlePhoneNumberChange}
+                            // value={phoneNumber}
+                            errors={errors.telephone?.message}
+                            register={register("telephone")}
                             placeholder="Digite seu telefone..."
                         />
 
-                        {errors.phone && (
+                        {errors.telephone && (
                             <ErrorMessage
                                 className="error-msg"
-                                message={errors.phone.message}
+                                message={errors.telephone.message}
                             />
                         )}
                     </FormSectionField>
                 </div>
 
-                <div className="form-btns">
+                <div className={FormStyled.formBtns}>
                     <Button
                         className={ButtonStyled.primaryButton}
                         type="submit"

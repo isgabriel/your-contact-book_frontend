@@ -7,65 +7,56 @@ import { ContactContext } from "../../../context/ContactContext";
 
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { contactUpdateSchema } from "../../../schemas/contact.schema";
+import { contactSchema } from "../../../schemas/contact.schema";
 import { FormSectionField } from "../FormSectionField";
 import { LabelField } from "../LabelField";
 import { Button } from "../../Button";
+import { iContact } from "../../../interfaces/contact.interfaces";
+
+import FormStyled from "../forms.module.scss";
+import ButtonStyled from "../../Button/styles.module.scss";
 
 const EditContactForm = () => {
-    const { handlePhoneNumberChange, phoneNumber, updateContact } =
+    const { patchContact, selectedContactId, contact } =
         useContext(ContactContext);
-
     const {
-        register,
         handleSubmit,
+        register,
         formState: { errors },
-        reset,
-    } = useForm({
-        resolver: zodResolver(contactUpdateSchema),
-        mode: "all",
-        defaultValues: {
-            name: "",
-            email: "",
-            phone: "",
-        },
+    } = useForm<iContact>({
+        resolver: zodResolver(contactSchema),
     });
 
-    const onSubmit = (data: any) => {
-        if (data.name == "") {
-            delete data.name;
-        }
-        if (data.email == "") {
-            delete data.email;
-        }
-        if (data.phone == "") {
-            delete data.phone;
-        }
-        if (data.password == "") {
-            delete data.password;
-        }
-        updateContact(data);
-        reset();
+    const idContact: number = selectedContactId!;
+    const contactInfos = contact.filter(
+        (singleContact) => singleContact.id === idContact
+    );
+
+    const onSubmit = (data: iContact) => {
+        patchContact(data, idContact);
     };
 
     return (
-        <form onSubmit={handleSubmit(onSubmit)} className="form-modal">
+        <form
+            onSubmit={handleSubmit(onSubmit)}
+            className={FormStyled.formModal}
+        >
             <FormSectionField>
                 <LabelField placeholder="Nome" />
                 <InputField
-                    required={false}
-                    errors={errors.name?.message}
-                    register={register("name")}
+                    errors={errors.fullname?.message}
+                    defaultValue={contactInfos[0].fullname}
+                    register={register("fullname")}
                     placeholder="nome"
                 />
-                {errors.name && <p>{errors.name.message}</p>}
+                {errors.fullname && <p>{errors.fullname.message}</p>}
             </FormSectionField>
 
             <FormSectionField>
                 <LabelField placeholder="Email" />
                 <InputField
-                    required={false}
                     errors={errors.email?.message}
+                    defaultValue={contactInfos[0].email}
                     register={register("email")}
                     placeholder="email"
                 />
@@ -76,20 +67,17 @@ const EditContactForm = () => {
                 <LabelField placeholder="Telefone" />
 
                 <InputField
-                    required={false}
-                    maxLength={16}
-                    onChange={handlePhoneNumberChange}
-                    value={phoneNumber}
-                    errors={errors.phone?.message}
-                    register={register("phone")}
+                    errors={errors.telephone?.message}
+                    defaultValue={contactInfos[0].telephone}
+                    register={register("telephone")}
                     placeholder="telefone"
                 />
 
-                {errors.phone && <p>{errors.phone.message}</p>}
+                {errors.telephone && <p>{errors.telephone.message}</p>}
             </FormSectionField>
-            <div className="form-btns">
+            <div className={FormStyled.formBtns}>
                 <Button
-                    className="mt-3 mb-3 purple-btn button-common"
+                    className={ButtonStyled.secondaryButton}
                     type="submit"
                     text="Atualizar contato"
                 />

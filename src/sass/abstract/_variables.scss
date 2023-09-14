@@ -4,11 +4,13 @@ $brand-2-color: #4c553a;
 $brand-3-color: #94a07c;
 
 $background-color: rgba(30, 30, 30, 0.4);
+$background-dashboard: #1e1e1e;
 $text-color: #cfd6e0;
 $border-color: #cfd6e0;
 $placeholder-color: rgba(207, 214, 224, 0.5);
 $nav-color: rgba(217, 217, 217, 0.05);
 $menu-color: rgba(0, 0, 0, 0.4);
+$modal-bg-color: rgba(0, 0, 0, 0.6);
 
 $grey-dark: #222222;
 $grey-medium: #909090;
@@ -16,6 +18,7 @@ $grey-light: #d1d1d1;
 
 $white-color: #ffffff;
 $red-color: #ff3c3c;
+$red-light-color: #ffa0a0;
 
 // Typography
 $button-size: 1.25rem;
@@ -29,6 +32,10 @@ $text-home-mobile-size: 0.875rem;
 $text-home-desktop-size: 1.5625rem;
 
 $header-btns-size: 1.5625rem;
+
+$title-modal-size: 18px;
+
+$menu-options-logged-size: 1.5rem;
 
 // Weights
 $bold-weight: 700;

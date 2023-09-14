@@ -1,0 +1,42 @@
+@use "/src/sass/globals.scss" as *;
+
+.bgDash {
+    position: fixed;
+    top: 0;
+    z-index: 1;
+
+    background-color: $background-dashboard;
+
+    min-height: 100vh;
+    height: max-content;
+    width: 100%;
+}
+
+.mainDashContainer {
+    min-height: 85vh;
+    margin-top: 100px;
+    position: relative;
+    z-index: 5;
+
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+
+    padding: 0 20px;
+
+    @media (min-width: 769px) {
+        padding: 20px 50px;
+    }
+}
+.contactsList {
+    width: 100%;
+    display: flex;
+    flex-wrap: nowrap;
+
+    gap: 20px;
+    overflow-x: scroll;
+    @media (min-width: 769px) {
+        flex-wrap: wrap;
+        overflow-x: hidden;
+    }
+}

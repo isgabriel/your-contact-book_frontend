@@ -3,58 +3,50 @@ import { useContext } from "react";
 
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { contactReqSchema } from "../../../schemas/contact.schema";
-import { tContactReq } from "../../../interfaces/contact.interfaces";
+import { contactSchema } from "../../../schemas/contact.schema";
+import { iContact } from "../../../interfaces/contact.interfaces";
 
 import { ContactContext } from "../../../context/ContactContext";
 import { LabelField } from "../LabelField";
 import { InputField } from "../InputField";
 import { FormSectionField } from "../FormSectionField";
 import { ErrorMessage } from "../ErrorMessage";
-
-import "./style.scss";
 import { Button } from "../../Button";
 
+import styles from "./styles.module.scss";
+import ButtonStyled from "../../Button/styles.module.scss";
+
 const AddContactForm = () => {
-    const { setPhoneNumber, createContact } = useContext(ContactContext);
-
-    const { handlePhoneNumberChange, phoneNumber } = useContext(ContactContext);
-
     const {
-        register,
         handleSubmit,
+        register,
         formState: { errors },
-        reset,
-    } = useForm({
-        resolver: zodResolver(contactReqSchema),
-        mode: "all",
-        defaultValues: {
-            name: "",
-            email: "",
-            phone: "",
-        },
+    } = useForm<iContact>({
+        resolver: zodResolver(contactSchema),
     });
 
-    const onSubmit = (data: tContactReq) => {
+    const { createContact } = useContext(ContactContext);
+
+    const onSubmit = (data: iContact) => {
         createContact(data);
-        reset();
-        setPhoneNumber("");
     };
     return (
-        <form onSubmit={handleSubmit(onSubmit)} className="form-add-contacts">
-            <div className="inputs-div">
+        <form
+            onSubmit={handleSubmit(onSubmit)}
+            className={styles.formAddContacts}
+        >
+            <div className={styles.inputsDiv}>
                 <FormSectionField>
                     <LabelField placeholder="Nome" />
 
                     <InputField
-                        required={true}
-                        errors={errors.name?.message}
-                        register={register("name")}
+                        errors={errors.fullname?.message}
+                        register={register("fullname")}
                     />
-                    {errors.name && (
+                    {errors.fullname && (
                         <ErrorMessage
                             className="error-msg"
-                            message={errors.name.message}
+                            message={errors.fullname.message}
                         />
                     )}
                 </FormSectionField>
@@ -63,7 +55,6 @@ const AddContactForm = () => {
                     <LabelField placeholder="Email" />
 
                     <InputField
-                        required={true}
                         errors={errors.email?.message}
                         register={register("email")}
                     />
@@ -79,22 +70,20 @@ const AddContactForm = () => {
                     <LabelField placeholder="Telefone" />
 
                     <InputField
-                        required={true}
-                        onChange={handlePhoneNumberChange}
-                        value={phoneNumber}
-                        errors={errors.phone?.message}
-                        register={register("phone")}
+                        errors={errors.telephone?.message}
+                        register={register("telephone")}
                     />
-                    {errors.phone && (
+                    {errors.telephone && (
                         <ErrorMessage
                             className="error-msg"
-                            message={errors.phone.message}
+                            message={errors.telephone.message}
                         />
                     )}
                 </FormSectionField>
             </div>
+
             <Button
-                className="purple-btn button-common"
+                className={ButtonStyled.secondaryButton}
                 type="submit"
                 text="Adicionar contato"
             />

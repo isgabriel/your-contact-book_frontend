@@ -1,4 +1,4 @@
-@import "../../../../sass/globals.scss";
+@use "../../sass/globals.scss" as *;
 
 .contact-card {
     padding: 18px 20px;

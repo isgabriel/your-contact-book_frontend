@@ -1,12 +1,16 @@
-import { z } from "zod";
-import {
-    contactReqSchema,
-    contactSchema,
-    contactUpdateSchema,
-} from "../schemas/contact.schema";
+interface iContact {
+    id: number;
+    fullname: string;
+    telephone: string;
+    email: string;
+}
 
-type tContact = z.infer<typeof contactSchema>;
-type tContactReq = z.infer<typeof contactReqSchema>;
-type tContactUpdate = z.infer<typeof contactUpdateSchema>;
+interface iDefaultId {
+    id: number;
+}
 
-export type { tContact, tContactReq, tContactUpdate };
+interface iContactsList {
+    contacts: iContact;
+}
+
+export type { iContact, iDefaultId, iContactsList };

@@ -1,161 +1,181 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { createContext, useEffect } from "react";
-import { iContactProviderProps } from "./interfaces";
-import { iContactContextProps } from "./interfaces";
 
 import { useState } from "react";
 import { api } from "../../services/api";
-import {
-    tContact,
-    tContactReq,
-    tContactUpdate,
-} from "../../interfaces/contact.interfaces";
+
+import { iContactContext } from "./types";
 import { useNavigate } from "react-router-dom";
 
-const ContactContext = createContext({} as iContactContextProps);
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { iChildrenProp } from "../../interfaces/children.interfaces";
+import { iContact } from "../../interfaces/contact.interfaces";
+import { useModal } from "../../hooks/modalHook";
 
-const ContactProvider = ({ children }: iContactProviderProps) => {
-    const [phoneNumber, setPhoneNumber] = useState<string>("");
-    const [contacts, setContacts] = useState<tContact[]>([]);
+const ContactContext = createContext({} as iContactContext);
 
-    const [editContactModal, setEditContactModal] = useState<boolean>(false);
-    const [editContactId, setEditContactId] = useState<number | null>(null);
-    const [isOpen, setIsOpen] = useState<boolean>(false);
+const ContactProvider = ({ children }: iChildrenProp) => {
+    const [contact, setContact] = useState<iContact[]>([]);
 
-    const token = localStorage.getItem("@contact-book: accessToken");
-    const userId = localStorage.getItem("@contact-book: userId");
+    const [selectedContactId, setSelectedContactId] = useState<number | null>(
+        null
+    );
+    const { setShowModal } = useModal();
 
+    const token = localStorage.getItem("@ContactBook: TOKEN");
     const navigate = useNavigate();
-
-    const handlePhoneNumberChange = (
-        e: React.ChangeEvent<HTMLInputElement>
-    ) => {
-        let formattedNumber = e.target.value;
-
-        formattedNumber = formattedNumber.replace(/\D/g, "");
-
-        if (formattedNumber.length > 2) {
-            formattedNumber = `+${formattedNumber.slice(
-                0,
-                2
-            )} ${formattedNumber.slice(2)}`;
-        }
-
-        if (formattedNumber.length > 7) {
-            formattedNumber = `${formattedNumber.slice(
-                0,
-                6
-            )} ${formattedNumber.slice(6)}`;
-        }
-
-        setPhoneNumber(formattedNumber);
-    };
-
-    const getContacts = async () => {
-        try {
-            const request = await api.get<Promise<tContact[]>>(
-                `/users/contacts/${userId}`,
-                {
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                    },
-                }
-            );
-
-            setContacts(await request.data);
-        } catch (err: unknown) {
-            console.log(err);
-        }
-    };
 
     useEffect(() => {
         const loadContacts = async () => {
             if (!token) {
-                localStorage.removeItem("@contact-book: accessToken");
-                localStorage.removeItem("@contact-book: userId");
+                localStorage.removeItem("@ContactBook: TOKEN");
+                localStorage.removeItem("@ContactBook: SERIALUSER");
+
                 navigate("/");
-                return;
             }
 
             try {
-                const response = await api.get(`/users/contacts/${userId}`, {
+                const response = await api.get("/contacts", {
                     headers: {
                         Authorization: `Bearer ${token}`,
                     },
                 });
 
-                setContacts(response.data);
+                setContact(response.data);
             } catch (err) {
-                console.log("ERRO!!", err);
+                console.log(
+                    "Para carregar os contatos é necessário fazer login!"
+                );
+                // toast.error(
+                //     "Erro. Por favor, verifique suas informções e tente novamente!"
+                // );
             }
         };
-
         loadContacts();
     }, []);
 
-    const createContact = async (data: tContactReq) => {
+    const createContact = async (formData: iContact) => {
         try {
-            await api.post("/contacts", data, {
+            const { data } = await api.post("/contacts", formData, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
             });
-            setPhoneNumber("");
-            getContacts();
+
+            setContact(data.id);
+            setShowModal("");
+
+            toast.success("Novo contato adicionado!");
+
+            await retrieveContacts();
         } catch (err) {
             console.log(err);
+
+            toast.error(
+                "Algo deu errado. Por favor, verifique as informções e tente novamente!"
+            );
         }
     };
 
-    const deleteContact = async (contactId: number) => {
+    const deleteContact = async (id: number) => {
         try {
-            await api.delete(`/contacts/${contactId}`, {
+            await api.delete(`contacts/${id}`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
             });
-            getContacts();
+
+            const data = contact.filter((contacts) => contacts.id !== id);
+
+            setContact(data);
+            setShowModal("");
+
+            await retrieveContacts();
+
+            toast.success("Contato deletado com sucesso!");
         } catch (err) {
             console.log(err);
+
+            toast.error(
+                "Algo deu errado. Por favor, verifique as informções e tente novamente!"
+            );
         }
     };
 
-    const updateContact = async (data: tContactUpdate) => {
+    const retrieveContacts = async () => {
         try {
-            await api.patch(`/contacts/${editContactId}`, data, {
+            const response = await api.get("/contacts", {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
             });
 
-            setPhoneNumber("");
-            getContacts();
-            setEditContactId(null);
-            setEditContactModal(false);
+            setContact(response.data);
         } catch (err) {
             console.log(err);
+
+            toast.error(
+                "Algo deu errado. Por favor, verifique as informções e tente novamente!"
+            );
+        }
+    };
+
+    const patchContact = async (data: iContact, id: number) => {
+        try {
+            const response = await api.patch(`/contacts/${id}`, data, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+
+            setShowModal("");
+            setContact((prevContacts) => {
+                const updatedContacts = prevContacts.map((contact) =>
+                    contact.id === id
+                        ? { ...contact, ...response.data }
+                        : contact
+                );
+
+                return updatedContacts;
+            });
+
+            toast.success("Contato atualizado com sucesso!");
+        } catch (err) {
+            console.log(err);
+
+            toast.error(
+                "Não foi possível atualizar o contato. Por favor, verifique as informações e tente novamente!"
+            );
         }
     };
 
     return (
         <ContactContext.Provider
             value={{
-                phoneNumber,
-                setPhoneNumber,
-                handlePhoneNumberChange,
+                contact,
+                setContact,
+                selectedContactId,
+                setSelectedContactId,
                 createContact,
-                contacts,
-                setContacts,
                 deleteContact,
-                editContactModal,
-                setEditContactModal,
-                editContactId,
-                setEditContactId,
-                updateContact,
-                isOpen,
-                setIsOpen,
+                retrieveContacts,
+                patchContact,
             }}
         >
             {children}
+            <ToastContainer
+                position="top-right"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
+            />
         </ContactContext.Provider>
     );
 };
