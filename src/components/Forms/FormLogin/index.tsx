@@ -5,20 +5,20 @@ import { InputField } from "../InputField";
 import { useForm } from "react-hook-form";
 import { userLoginSchema } from "../../../schemas/user.schema";
 
-import { AuthContext } from "../../../context/AuthContext";
-
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FormSectionField } from "../FormSectionField";
 import { LabelField } from "../LabelField";
-import { RedirectToOtherPage } from "../RedirectToOtherPage";
 import { useNavigate } from "react-router-dom";
 
-import "../forms.scss";
-import { Button } from "../Button";
 import { ErrorMessage } from "../ErrorMessage";
+import { Button } from "../../Button";
+
+import ButtonStyled from "../../Button/styles.module.scss";
+import { UserContext } from "../../../context/UserContext";
+import FormStyled from "../forms.module.scss";
 
 const FormLogin = () => {
-    const { login } = useContext(AuthContext);
+    const { login } = useContext(UserContext);
 
     const navigate = useNavigate();
 
@@ -41,60 +41,67 @@ const FormLogin = () => {
     const goToRegister = () => {
         navigate("/register");
     };
+
     return (
-        <form onSubmit={handleSubmit(onSubmit)} className="mt-5 form-group">
-            <h3 className="mb-3 subtitle">Login</h3>
+        <form
+            onSubmit={handleSubmit(onSubmit)}
+            className={FormStyled.formGroup}
+        >
+            <div className={FormStyled.formDiv}>
+                <h3 className={FormStyled.subtitle}>
+                    Peparado para <span>visualizar seus contatos</span> na
+                    Contact Book?
+                </h3>
 
-            <div className="form-div">
-                <FormSectionField>
-                    <LabelField placeholder="Email" />
+                <div className={FormStyled.formInputsDiv}>
+                    <FormSectionField>
+                        <LabelField placeholder="Email" />
 
-                    <InputField
-                        required={true}
-                        errors={errors.email?.message}
-                        register={register("email")}
-                        placeholder="Digite seu email..."
-                    />
-                    {errors.email && (
-                        <ErrorMessage
-                            className="error-msg"
-                            message={errors.email.message}
+                        <InputField
+                            required={true}
+                            errors={errors.email?.message}
+                            register={register("email")}
+                            placeholder="Digite seu email..."
                         />
-                    )}
-                </FormSectionField>
-                <FormSectionField>
-                    <LabelField placeholder="Senha" />
-                    <InputField
-                        required={true}
-                        type="password"
-                        errors={errors.password?.message}
-                        register={register("password")}
-                        placeholder="Digite sua senha..."
-                    />
-                    {errors.password && (
-                        <ErrorMessage
-                            className="error-msg"
-                            message={errors.password.message}
+                        {errors.email && (
+                            <ErrorMessage
+                                className={FormStyled.errorMsg}
+                                message={errors.email.message}
+                            />
+                        )}
+                    </FormSectionField>
+                    <FormSectionField>
+                        <LabelField placeholder="Senha" />
+                        <InputField
+                            required={true}
+                            type="password"
+                            errors={errors.password?.message}
+                            register={register("password")}
+                            placeholder="Digite sua senha..."
                         />
-                    )}
-                </FormSectionField>
-            </div>
+                        {errors.password && (
+                            <ErrorMessage
+                                className={FormStyled.errorMsg}
+                                message={errors.password.message}
+                            />
+                        )}
+                    </FormSectionField>
+                </div>
 
-            <div className="form-btns">
-                <Button
-                    buttonClass="mt-3 mb-3 purple-btn button-common"
-                    buttonType="submit"
-                    buttonText="Entrar"
-                />
-                <h4 className="text-center">OU</h4>
-                <RedirectToOtherPage>
+                <div className={FormStyled.formBtns}>
+                    <Button
+                        className={ButtonStyled.primaryButton}
+                        type="submit"
+                        text="Entrar"
+                    />
+
                     <Button
                         onClick={goToRegister}
-                        buttonClass="mt-3 blue-btn button-common"
-                        buttonType="button"
-                        buttonText="Ir para Cadastro"
+                        className={ButtonStyled.secondaryButton}
+                        type="button"
+                        text="Ir para Cadastro"
                     />
-                </RedirectToOtherPage>
+                </div>
             </div>
         </form>
     );

@@ -1,0 +1,11 @@
+@import "../../sass/globals.scss";
+.figureIcon {
+    padding: 12px 15px;
+
+    border-radius: 50%;
+
+    background-color: $brand-3-color;
+    color: $white-color;
+
+    font-size: 25px;
+}

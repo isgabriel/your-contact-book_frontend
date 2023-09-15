@@ -1,7 +1,6 @@
-import "bootstrap/dist/css/bootstrap.min.css";
 import { AppRoutes } from "./routes";
 
-import "./sass/style.scss";
+import "./sass/globals.scss";
 
 function App() {
     return (

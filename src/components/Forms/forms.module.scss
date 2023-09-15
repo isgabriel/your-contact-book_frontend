@@ -1,0 +1,89 @@
+@use "../../sass/globals.scss" as *;
+
+.formGroup {
+    position: relative;
+    z-index: 3;
+
+    width: 100%;
+    min-height: 100vh;
+
+    padding: 100px 20px;
+
+    border-radius: $radius-form;
+
+    backdrop-filter: blur(10px);
+    box-shadow: -10px 2px 11px -1px $background-color;
+
+    @media (min-width: 580px) {
+        .formBtns {
+            flex-direction: row;
+            justify-content: space-between;
+
+            max-width: 670px;
+
+            > button {
+                min-width: 0%;
+                width: 100%;
+            }
+        }
+    }
+
+    @media (min-width: 769px) {
+        padding: 160px 50px 50px;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        .formDiv {
+            gap: 50px;
+        }
+    }
+}
+.formDiv {
+    max-width: 700px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.subtitle {
+    @include titleBasic();
+}
+.formInputsDiv {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.errorMsg {
+    @include errorMsg();
+}
+.buttonsInRow {
+    margin-top: 30px;
+    width: 100%;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.formBtns {
+    margin-top: 20px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    > button {
+        min-width: 100%;
+    }
+}
+.formModal {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+
+    .formBtns {
+        margin-top: 0;
+    }
+}

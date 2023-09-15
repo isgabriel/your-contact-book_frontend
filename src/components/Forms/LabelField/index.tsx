@@ -1,4 +1,4 @@
-import "./style.scss";
+import styles from "./styles.module.scss";
 
 interface iLabelProps {
     placeholder: string;
@@ -6,7 +6,7 @@ interface iLabelProps {
 const LabelField = ({ placeholder }: iLabelProps) => {
     return (
         <>
-            <label htmlFor={placeholder} className="label">
+            <label htmlFor={placeholder} className={styles.label}>
                 {placeholder}
             </label>
         </>

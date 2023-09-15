@@ -1,0 +1,202 @@
+@mixin ButtonBasic($bg-color, $color, $bg-hover) {
+    background-color: $bg-color;
+    color: $color;
+
+    font-size: $button-size;
+    font-weight: $bold-weight;
+    font-family: "Roboto", sans-serif;
+
+    text-transform: uppercase;
+
+    padding: 13px 0;
+
+    max-width: 280px;
+
+    border: none;
+    border-radius: $radius-button;
+
+    cursor: pointer;
+
+    &:hover {
+        background-color: $bg-hover;
+        transition: 0.8s;
+    }
+}
+@mixin Labelbasic() {
+    font-size: $label-size;
+    font-weight: $semi-bold-weight;
+}
+@mixin InputBasic($bg-color, $color, $color-placeholder) {
+    background-color: $bg-color;
+    color: $color-placeholder;
+
+    padding: 13px 0 13px 13px;
+
+    border: 1px solid $border-color;
+
+    font-size: $placeholder-size;
+    font-weight: $light-weight;
+
+    &:focus {
+        outline: 0;
+
+        border: 1px solid $brand-1-color;
+    }
+
+    &::placeholder {
+        font-weight: $light-weight;
+
+        color: $color-placeholder;
+    }
+}
+@mixin titleBasic() {
+    font-size: $title-1-mobile;
+    font-weight: $bold-weight;
+
+    line-height: 150%;
+
+    color: $white-color;
+
+    > span {
+        color: $brand-3-color;
+    }
+    @media (min-width: 769px) {
+        font-size: $title-1-desktop;
+    }
+}
+@mixin textBasic($size, $weight, $color) {
+    font-size: $size;
+    font-weight: $weight;
+
+    color: $color;
+}
+@mixin menuHamburguer() {
+    padding-left: 20px;
+
+    background-color: transparent;
+    border: none;
+
+    padding-top: 30px;
+
+    @media (min-width: 769px) {
+        display: none;
+    }
+}
+@mixin navBasic() {
+    padding: 35px 0;
+
+    min-width: 30%;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 15px;
+
+    > a,
+    > button {
+        text-decoration: none;
+        @include textBasic($header-btns-size, $regular-weight, $white-color);
+
+        background-color: transparent;
+
+        border: none;
+
+        cursor: pointer;
+
+        &:hover {
+            color: $brand-1-color;
+
+            transform: scale(1.04);
+
+            transition: 0.8s;
+        }
+    }
+}
+@mixin bgImage() {
+    position: fixed;
+    top: 0;
+    z-index: 1;
+
+    width: 100%;
+    min-height: 100%;
+    height: max-content;
+
+    background: url(/src/assets/background-image.svg);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+@mixin errorMsg() {
+    @include textBasic($text-home-mobile-size, $regular-weight, $red-color);
+
+    margin-top: 5px;
+
+    font-style: italic;
+}
+@mixin headerBasic() {
+    z-index: 6;
+    position: fixed;
+    top: 48px;
+
+    width: 100%;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    > div {
+        display: none;
+    }
+
+    @media (min-width: 769px) {
+        background-color: $nav-color;
+        justify-content: center;
+
+        > div {
+            padding: 0 50px;
+
+            width: 100%;
+
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+        }
+    }
+}
+
+@mixin cardBasic() {
+    background-color: $card-bg-color;
+    color: $white-color;
+
+    width: 30%;
+    min-width: 256px;
+    max-width: 300px;
+
+    padding: 18px 20px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+
+    border: 1px solid $border-color;
+    border-radius: $radius-card;
+
+    @media (min-width: 769px) {
+        padding: 40px 20px;
+    }
+}
+@mixin buttonTransparent() {
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+}
+@mixin logoBasic() {
+    width: 40px;
+    height: 40px;
+
+    @media (min-width: 769px) {
+        width: 50px;
+        height: 50px;
+    }
+}

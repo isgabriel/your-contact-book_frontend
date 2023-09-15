@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import "./style.scss";
+import styles from "./styles.module.scss";
 
 interface iInputFieldProps {
     type?: string;
@@ -7,7 +7,7 @@ interface iInputFieldProps {
     errors?: any;
     register?: object;
     value?: string;
-    maxLength?: number;
+    defaultValue?: string;
     required?: boolean;
     onChange?: React.ChangeEventHandler<HTMLInputElement>;
 }
@@ -15,25 +15,24 @@ interface iInputFieldProps {
 export const InputField = ({
     type,
     placeholder,
-
+    defaultValue,
     onChange,
     register,
     value,
-    maxLength,
     required,
 }: iInputFieldProps) => {
     return (
         <>
             <input
                 value={value}
-                maxLength={maxLength}
                 {...register}
                 onChange={onChange}
                 required={required}
                 id={placeholder}
                 type={type}
                 placeholder={placeholder}
-                className="form-control mt-1 input-class"
+                className={styles.inputClass}
+                defaultValue={defaultValue}
             />
         </>
     );

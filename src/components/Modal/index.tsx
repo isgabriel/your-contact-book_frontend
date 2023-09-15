@@ -1,58 +1,33 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-import { CloseButton } from "react-bootstrap";
-import { ContactContext } from "../../context/ContactContext";
-import { UserContext } from "../../context/UserContext";
+import { useModal } from "../../hooks/modalHook";
 
-import { useContext, useEffect, useRef } from "react";
-import "./style.scss";
-import { createPortal } from "react-dom";
+import closeBtn from "../../assets/close-button.svg";
+import styles from "./styles.module.scss";
 
-interface iModalProps {
+interface ModalProps {
+    title: string;
     children: React.ReactNode;
-    title?: string;
 }
 
-export const Modal = ({ children, title }: iModalProps) => {
-    const { setIsOpen, setEditContactModal, setEditContactId } =
-        useContext(ContactContext);
-    const { setEditUserModal } = useContext(UserContext);
+export const Modal = ({ title, children }: ModalProps) => {
+    const { setShowModal, closeModal, showModal } = useModal();
 
-    const modalRef = useRef<HTMLDivElement>(null);
-
-    useEffect(() => {
-        const handleClickOutside = (event: MouseEvent) => {
-            if (
-                modalRef.current &&
-                !modalRef.current.contains(event.target as Node)
-            ) {
-                setIsOpen(false);
-                setEditContactModal(false);
-                setEditUserModal(false);
-                setEditContactId(null);
-            }
-        };
-        document.addEventListener("click", handleClickOutside);
-        return () => {
-            document.removeEventListener("click", handleClickOutside);
-        };
-    }, []);
-
-    const closeModal = () => {
-        setIsOpen(false);
-        setEditContactModal(false);
-        setEditUserModal(false);
-        setEditContactId(null);
-    };
-    return createPortal(
-        <div className="modal-bg">
-            <div ref={modalRef} className="modal-div">
-                <section className="mb-5 modal-header ">
-                    <h2>{title}</h2>
-                    <CloseButton onClick={closeModal} />
-                </section>
-                {children}
+    return (
+        <div
+            className={styles.container}
+            onClick={showModal != "" ? closeModal : undefined}
+        >
+            <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
+                <header className={styles.header}>
+                    <h4 className={styles.title}>{title}</h4>
+                    <div
+                        className={styles.close}
+                        onClick={() => setShowModal("")}
+                    >
+                        <img src={closeBtn} />
+                    </div>
+                </header>
+                <div className={styles.content}>{children}</div>
             </div>
-        </div>,
-        document.body
+        </div>
     );
 };

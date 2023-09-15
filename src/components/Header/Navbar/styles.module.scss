@@ -1,0 +1,16 @@
+@use "/src/sass/globals.scss" as *;
+
+.loggedNavbar {
+    @include navBasic();
+
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+
+    @media (min-width: 769px) {
+        @include navBasic();
+    }
+}
+.notLoggedNavbar {
+    @include navBasic();
+}
