@@ -36,7 +36,8 @@ const ContactProvider = ({ children }: iChildrenProp) => {
             }
 
             try {
-                const response = await api.get("/contacts", {
+                // const userId = localStorage.getItem("@ContactBook: SERIALUSER");
+                const response = await api.get(`/contacts`, {
                     headers: {
                         Authorization: `Bearer ${token}`,
                     },
@@ -50,7 +51,7 @@ const ContactProvider = ({ children }: iChildrenProp) => {
             }
         };
         loadContacts();
-    }, []);
+    }, [contact]);
 
     const createContact = async (formData: iContact) => {
         try {

@@ -14,6 +14,7 @@ import { Button } from "../../Button";
 
 import styles from "./styles.module.scss";
 import ButtonStyled from "../../Button/styles.module.scss";
+import FormStyled from "../forms.module.scss";
 
 const AddContactForm = () => {
     const {
@@ -44,7 +45,7 @@ const AddContactForm = () => {
                     />
                     {errors.fullname && (
                         <ErrorMessage
-                            className="error-msg"
+                            className={FormStyled.errorMsg}
                             message={errors.fullname.message}
                         />
                     )}
@@ -59,7 +60,7 @@ const AddContactForm = () => {
                     />
                     {errors.email && (
                         <ErrorMessage
-                            className="error-msg"
+                            className={FormStyled.errorMsg}
                             message={errors.email.message}
                         />
                     )}
@@ -74,7 +75,7 @@ const AddContactForm = () => {
                     />
                     {errors.telephone && (
                         <ErrorMessage
-                            className="error-msg"
+                            className={FormStyled.errorMsg}
                             message={errors.telephone.message}
                         />
                     )}

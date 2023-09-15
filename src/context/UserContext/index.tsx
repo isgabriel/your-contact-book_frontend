@@ -18,6 +18,7 @@ const UserProvider = ({ children }: iChildrenProp) => {
     const [personalInfo, setPersonalInfo] = useState<iUserUpdate>();
 
     const { setMenu } = useContext(MenuContext);
+
     const { setShowModal } = useModal();
 
     const navigate = useNavigate();

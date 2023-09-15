@@ -57,7 +57,7 @@ const FormRegister = () => {
                         />
                         {errors.fullname && (
                             <ErrorMessage
-                                className="error-msg"
+                                className={FormStyled.errorMsg}
                                 message={errors.fullname.message}
                             />
                         )}
@@ -72,7 +72,7 @@ const FormRegister = () => {
                         />
                         {errors.email && (
                             <ErrorMessage
-                                className="error-msg"
+                                className={FormStyled.errorMsg}
                                 message={errors.email.message}
                             />
                         )}
@@ -90,7 +90,7 @@ const FormRegister = () => {
 
                         {errors.password && (
                             <ErrorMessage
-                                className="error-msg"
+                                className={FormStyled.errorMsg}
                                 message={errors.password.message}
                             />
                         )}
@@ -107,7 +107,7 @@ const FormRegister = () => {
 
                         {errors.telephone && (
                             <ErrorMessage
-                                className="error-msg"
+                                className={FormStyled.errorMsg}
                                 message={errors.telephone.message}
                             />
                         )}

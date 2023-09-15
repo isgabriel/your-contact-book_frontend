@@ -1,14 +1,16 @@
 import { useContext } from "react";
+
 import { Title } from "../../components/Title";
 import { Header } from "../../components/Header";
 import { MenuHamburguer } from "../../components/Header/MenuHamburguer";
-
 import { Navbar } from "../../components/Header/Navbar";
 import { MenuContext } from "../../context/MenuContext";
 import { Menu } from "../../components/Menu";
+import { Logo } from "../../components/Logo";
+
+import { NoticeAboutApi } from "../../components/NoticeAboutApi";
 
 import styles from "./styles.module.scss";
-import { NoticeAboutApi } from "../../components/NoticeAboutApi";
 
 const Home = () => {
     const { menu } = useContext(MenuContext);
@@ -21,7 +23,7 @@ const Home = () => {
             <Header>
                 <MenuHamburguer />
                 <div>
-                    <p>icon</p>
+                    <Logo />
 
                     <Navbar />
                 </div>

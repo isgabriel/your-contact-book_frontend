@@ -65,7 +65,7 @@ const FormLogin = () => {
                         />
                         {errors.email && (
                             <ErrorMessage
-                                className="error-msg"
+                                className={FormStyled.errorMsg}
                                 message={errors.email.message}
                             />
                         )}
@@ -81,7 +81,7 @@ const FormLogin = () => {
                         />
                         {errors.password && (
                             <ErrorMessage
-                                className="error-msg"
+                                className={FormStyled.errorMsg}
                                 message={errors.password.message}
                             />
                         )}
