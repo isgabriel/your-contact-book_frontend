@@ -95,14 +95,12 @@ const FormLogin = () => {
                         text="Entrar"
                     />
 
-                    {/* <RedirectToOtherPage> */}
                     <Button
                         onClick={goToRegister}
                         className={ButtonStyled.secondaryButton}
                         type="button"
                         text="Ir para Cadastro"
                     />
-                    {/* </RedirectToOtherPage> */}
                 </div>
             </div>
         </form>

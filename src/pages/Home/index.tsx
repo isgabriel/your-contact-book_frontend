@@ -8,6 +8,7 @@ import { MenuContext } from "../../context/MenuContext";
 import { Menu } from "../../components/Menu";
 
 import styles from "./styles.module.scss";
+import { NoticeAboutApi } from "../../components/NoticeAboutApi";
 
 const Home = () => {
     const { menu } = useContext(MenuContext);
@@ -15,6 +16,7 @@ const Home = () => {
     return (
         <>
             {menu && <Menu />}
+            <NoticeAboutApi />
             <span className={styles.bgImg}></span>
             <Header>
                 <MenuHamburguer />

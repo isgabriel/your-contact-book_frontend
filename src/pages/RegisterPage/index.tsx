@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useContext } from "react";
 
 import { FormRegister } from "../../components/Forms/FormRegister";
@@ -9,6 +8,7 @@ import { MenuHamburguer } from "../../components/Header/MenuHamburguer";
 import { Navbar } from "../../components/Header/Navbar";
 
 import styles from "./styles.module.scss";
+import { NoticeAboutApi } from "../../components/NoticeAboutApi";
 
 const RegisterPage = () => {
     const { menu } = useContext(MenuContext);
@@ -16,6 +16,7 @@ const RegisterPage = () => {
     return (
         <>
             {menu && <Menu />}
+            <NoticeAboutApi />
             <Header>
                 <MenuHamburguer />
                 <div>

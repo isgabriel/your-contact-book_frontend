@@ -1,9 +1,10 @@
+import { EditProfileForm } from "../../Forms/EditProfileForm";
 import { Modal } from "../index";
 
 const EditProfileModal = () => {
     return (
         <Modal title="Editar Perfil">
-            <form action=""></form>
+            <EditProfileForm />
         </Modal>
     );
 };

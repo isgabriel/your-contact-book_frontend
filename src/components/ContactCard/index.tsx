@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import copyImg from "../../assets/copy-button.svg";
 
 import { UserIcon } from "../UserIcon";
@@ -6,9 +5,11 @@ import { UserIcon } from "../UserIcon";
 import { iContact } from "../../interfaces/contact.interfaces";
 import { useModal } from "../../hooks/modalHook";
 
-import "./style.scss";
 import { useContext } from "react";
 import { ContactContext } from "../../context/ContactContext";
+
+import styles from "./styles.module.scss";
+import { toast } from "react-toastify";
 
 const copyToClipboard = (content: string) => {
     const textField = document.createElement("textarea");
@@ -24,15 +25,16 @@ interface iContactCardProps {
 }
 
 export const ContactCard = ({ contact }: iContactCardProps) => {
-    const { selectedContactId, setSelectedContactId } =
-        useContext(ContactContext);
+    const { setSelectedContactId } = useContext(ContactContext);
     const { setShowModal } = useModal();
 
     const handleCopyEmail = () => {
+        toast.success("Email Copiado!");
         copyToClipboard(contact.email);
     };
 
     const handleCopyPhone = () => {
+        toast.success("Telefone Copiado!");
         copyToClipboard(contact.telephone);
     };
 
@@ -47,28 +49,33 @@ export const ContactCard = ({ contact }: iContactCardProps) => {
     };
 
     return (
-        <li className="contact-card">
-            <section>
-                <div className="icon-div contact-icon-div">
-                    <UserIcon initialLetter={contact.fullname[0]} />
-                    <h3 className="mb-2">{contact.fullname}</h3>
-                </div>
-            </section>
-            <div className="contact-info mb-3">
-                <div>
-                    <button onClick={handleCopyEmail} className="button-copy">
-                        <img src={copyImg} className="copy-img" />
+        <li className={styles.contactCard}>
+            <div className={styles.contactIconDiv}>
+                <UserIcon initialLetter={contact.fullname[0]} />
+                <h3>{contact.fullname}</h3>
+            </div>
+
+            <div className={styles.contactInfo}>
+                <div
+                    className={styles.contactSpecificInfo}
+                    onClick={handleCopyEmail}
+                >
+                    <button className={styles.buttonCopy}>
+                        <img src={copyImg} className={styles.copyImg} />
                     </button>
                     <span>{contact.email}</span>
                 </div>
-                <div>
-                    <button onClick={handleCopyPhone} className="button-copy">
-                        <img src={copyImg} className="copy-img" />
+                <div
+                    className={styles.contactSpecificInfo}
+                    onClick={handleCopyPhone}
+                >
+                    <button className={styles.buttonCopy}>
+                        <img src={copyImg} className={styles.copyImg} />
                     </button>
                     <span>{contact.telephone}</span>
                 </div>
             </div>
-            <div className="div-contacts-buttons">
+            <div className={styles.divContactsButtons}>
                 <button onClick={handleEditContact}>Editar Contato</button>
                 <button onClick={handleDeleteContact}>Excluir Contato</button>
             </div>

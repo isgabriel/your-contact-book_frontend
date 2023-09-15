@@ -37,6 +37,20 @@
     overflow-x: scroll;
     @media (min-width: 769px) {
         flex-wrap: wrap;
+        justify-content: space-between;
         overflow-x: hidden;
     }
+}
+.noContactsMessage {
+    @include textBasic(
+        $text-home-desktop-size,
+        $semi-bold-weight,
+        $white-color
+    );
+
+    background-color: $card-bg-color;
+
+    padding: 20px 15px;
+    border-radius: $radius-card;
+    text-align: center;
 }

@@ -19,6 +19,8 @@ import { DeleteProfileModal } from "../../components/Modal/DeleteProfileModal";
 import { iContact } from "../../interfaces/contact.interfaces";
 
 import styles from "./styles.module.scss";
+import { AddContactSection } from "../../components/AddContactSection";
+import { NoticeAboutApi } from "../../components/NoticeAboutApi";
 
 const Dashboard = () => {
     const { menu } = useContext(MenuContext);
@@ -28,6 +30,7 @@ const Dashboard = () => {
 
     return (
         <>
+            <NoticeAboutApi />
             {loggedUser ? (
                 <>
                     {menu && <Menu />}
@@ -56,17 +59,26 @@ const Dashboard = () => {
                         </div>
                     </Header>
                     <main className={styles.mainDashContainer}>
+                        <AddContactSection />
                         <div>
-                            <ul className={styles.contactsList}>
-                                {contact?.map((contact: iContact) => {
-                                    return (
-                                        <ContactCard
-                                            contact={contact}
-                                            key={contact.id}
-                                        />
-                                    );
-                                })}
-                            </ul>
+                            {contact && contact.length > 0 ? (
+                                <ul className={styles.contactsList}>
+                                    {contact?.map((contact: iContact) => {
+                                        return (
+                                            <ContactCard
+                                                contact={contact}
+                                                key={contact.id}
+                                            />
+                                        );
+                                    })}
+                                </ul>
+                            ) : (
+                                <h3 className={styles.noContactsMessage}>
+                                    Você ainda não possui contatos cadastrados.
+                                    Tente cadastrar um novo contato clicando no
+                                    botão de adicionar!
+                                </h3>
+                            )}
                         </div>
                     </main>
                 </>

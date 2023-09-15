@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { UserContext } from "../../context/UserContext";
-import "./style.scss";
+
+import styles from "./styles.module.scss";
 
 interface iUserIconProps {
     initialLetter?: string;
@@ -10,7 +11,7 @@ export const UserIcon = ({ initialLetter }: iUserIconProps) => {
     const { loggedUser } = useContext(UserContext);
 
     return (
-        <figure className="figure-icon">
+        <figure className={styles.figureIcon}>
             {loggedUser?.fullname ? (
                 <span>{initialLetter?.toUpperCase()}</span>
             ) : (

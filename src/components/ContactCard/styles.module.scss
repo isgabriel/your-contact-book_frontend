@@ -1,0 +1,96 @@
+@use "../../sass/globals.scss" as *;
+
+.contactCard {
+    @include cardBasic();
+
+    .contactIconDiv {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 10px;
+
+        > figure {
+            padding: 12px 15px;
+
+            background-color: $background-color;
+        }
+        > h3 {
+            font-size: $contact-name-mobile-size;
+            font-weight: $semi-bold-weight;
+        }
+    }
+    .contactInfo {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+    .contactSpecificInfo {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 10px;
+
+        @include buttonTransparent();
+
+        > span {
+            @include textBasic(
+                $contact-infos-mobile-size,
+                $medium-weight,
+                $white-color
+            );
+        }
+    }
+
+    .buttonCopy {
+        @include buttonTransparent();
+    }
+    .copyImg {
+        width: 15px;
+        height: 15px;
+    }
+
+    .divContactsButtons {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+
+        > button {
+            @include buttonTransparent();
+            @include textBasic(
+                $contact-card-button-mobile-size,
+                $regular-weight,
+                $white-color
+            );
+
+            &:hover {
+                transform: scale(1.1);
+                transition: 0.6s;
+            }
+        }
+    }
+
+    @media (min-width: 769px) {
+        .contactIconDiv {
+            gap: 20px;
+
+            > h3 {
+                font-size: $contact-name-desktop-size;
+            }
+        }
+
+        .buttonCopy {
+            width: 18px;
+            height: 18px;
+        }
+        .contactSpecificInfo {
+            > span {
+                font-size: $contact-infos-desktop-size;
+            }
+        }
+        .divContactsButtons {
+            > button {
+                font-size: $contact-card-button-desktop-size;
+            }
+        }
+    }
+}

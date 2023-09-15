@@ -7,6 +7,7 @@ import { Menu } from "../../components/Menu";
 import { Header } from "../../components/Header";
 import { MenuHamburguer } from "../../components/Header/MenuHamburguer";
 import { Navbar } from "../../components/Header/Navbar";
+import { NoticeAboutApi } from "../../components/NoticeAboutApi";
 
 const LoginPage = () => {
     const { menu } = useContext(MenuContext);
@@ -14,6 +15,7 @@ const LoginPage = () => {
     return (
         <>
             {menu && <Menu />}
+            <NoticeAboutApi />
             <Header>
                 <MenuHamburguer />
                 <div>

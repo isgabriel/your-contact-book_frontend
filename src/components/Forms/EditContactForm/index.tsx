@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
 import { InputField } from "../../../components/Forms/InputField";
 
 import { useContext } from "react";

@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { InputField } from "../../../components/Forms/InputField";
 
 import { useForm } from "react-hook-form";
@@ -97,31 +96,10 @@ const FormRegister = () => {
                         )}
                     </FormSectionField>
 
-                    {/* <FormSectionField>
-                        <LabelField placeholder="Confirmar senha" />
-
-                        <InputField
-                            
-                            type="password"
-                            errors={errors.confirmPassword?.message}
-                            register={register("confirmPassword")}
-                            placeholder="Repita a senha..."
-                        />
-
-                        {errors.confirmPassword && (
-                            <ErrorMessage
-                                className="error-msg"
-                                message={errors.confirmPassword.message}
-                            />
-                        )}
-                    </FormSectionField> */}
-
                     <FormSectionField>
                         <LabelField placeholder="Telefone" />
 
                         <InputField
-                            // onChange={handlePhoneNumberChange}
-                            // value={phoneNumber}
                             errors={errors.telephone?.message}
                             register={register("telephone")}
                             placeholder="Digite seu telefone..."

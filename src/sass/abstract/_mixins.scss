@@ -136,7 +136,7 @@
 @mixin headerBasic() {
     z-index: 6;
     position: fixed;
-    top: 0;
+    top: 48px;
 
     width: 100%;
 
@@ -163,4 +163,31 @@
             align-items: center;
         }
     }
+}
+
+@mixin cardBasic() {
+    background-color: $card-bg-color;
+    color: $white-color;
+
+    width: 30%;
+    min-width: 256px;
+    max-width: 300px;
+
+    padding: 18px 20px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+
+    border: 1px solid $border-color;
+    border-radius: $radius-card;
+
+    @media (min-width: 769px) {
+        padding: 40px 20px;
+    }
+}
+@mixin buttonTransparent() {
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
 }

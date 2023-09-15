@@ -1,6 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import { useState, useEffect, useRef, useContext } from "react";
-
 import { useModal } from "../../hooks/modalHook";
 
 import closeBtn from "../../assets/close-button.svg";
@@ -12,9 +9,7 @@ interface ModalProps {
 }
 
 export const Modal = ({ title, children }: ModalProps) => {
-    const [displayPopupMenu, setDisplayPopupMenu] = useState<boolean>(false);
-
-    const { setShowModal, closeModal, showModal, popupMenuRef } = useModal();
+    const { setShowModal, closeModal, showModal } = useModal();
 
     return (
         <div

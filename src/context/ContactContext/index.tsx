@@ -7,11 +7,11 @@ import { api } from "../../services/api";
 import { iContactContext } from "./types";
 import { useNavigate } from "react-router-dom";
 
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import { iChildrenProp } from "../../interfaces/children.interfaces";
 import { iContact } from "../../interfaces/contact.interfaces";
 import { useModal } from "../../hooks/modalHook";
+
+import { toast } from "react-toastify";
 
 const ContactContext = createContext({} as iContactContext);
 
@@ -47,9 +47,6 @@ const ContactProvider = ({ children }: iChildrenProp) => {
                 console.log(
                     "Para carregar os contatos é necessário fazer login!"
                 );
-                // toast.error(
-                //     "Erro. Por favor, verifique suas informções e tente novamente!"
-                // );
             }
         };
         loadContacts();
@@ -164,18 +161,6 @@ const ContactProvider = ({ children }: iChildrenProp) => {
             }}
         >
             {children}
-            <ToastContainer
-                position="top-right"
-                autoClose={5000}
-                hideProgressBar={false}
-                newestOnTop={false}
-                closeOnClick
-                rtl={false}
-                pauseOnFocusLoss
-                draggable
-                pauseOnHover
-                theme="light"
-            />
         </ContactContext.Provider>
     );
 };

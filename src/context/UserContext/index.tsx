@@ -2,11 +2,11 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { iUserContext } from "./types";
 import { api } from "../../services/api";
-import { iLogin, iUser } from "../../interfaces/user.interfaces";
+import { iLogin, iUser, iUserUpdate } from "../../interfaces/user.interfaces";
 import { useNavigate } from "react-router-dom";
 import { iChildrenProp } from "../../interfaces/children.interfaces";
 
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import { MenuContext } from "../MenuContext";
 import { useModal } from "../../hooks/modalHook";
 
@@ -15,8 +15,9 @@ const UserContext = createContext({} as iUserContext);
 const UserProvider = ({ children }: iChildrenProp) => {
     const [user, setUser] = useState<iUser | null>(null);
     const [loggedUser, setLoggedUser] = useState<iUser | null>(null);
+    const [personalInfo, setPersonalInfo] = useState<iUserUpdate>();
 
-    const { menu, setMenu } = useContext(MenuContext);
+    const { setMenu } = useContext(MenuContext);
     const { setShowModal } = useModal();
 
     const navigate = useNavigate();
@@ -26,10 +27,10 @@ const UserProvider = ({ children }: iChildrenProp) => {
     useEffect(() => {
         const loadUser = async () => {
             if (token) {
+                localStorage.getItem("@ContactBook: SERIALUSER");
                 try {
                     api.defaults.headers.common.authorization = `Bearer ${token}`;
                     const response = await api.get("/users");
-                    localStorage.getItem("@ContactBook: SERIALUSER");
 
                     setLoggedUser(response.data);
                     setUser(response.data.id);
@@ -41,7 +42,7 @@ const UserProvider = ({ children }: iChildrenProp) => {
             }
         };
         loadUser();
-    }, []);
+    }, [user]);
 
     const signUp = async (data: iUser) => {
         try {
@@ -69,7 +70,6 @@ const UserProvider = ({ children }: iChildrenProp) => {
             const { token } = response.data;
 
             setUser(response.data);
-            setLoggedUser(response.data);
             localStorage.setItem("@ContactBook: TOKEN", token);
 
             api.defaults.headers.common.authorization = `Bearer ${token}`;
@@ -104,7 +104,7 @@ const UserProvider = ({ children }: iChildrenProp) => {
         }
     };
 
-    const patchUser = async (data: iUser) => {
+    const patchUser = async (data: iUserUpdate) => {
         const id = localStorage.getItem("@ContactBook: SERIALUSER");
 
         try {
@@ -133,6 +133,8 @@ const UserProvider = ({ children }: iChildrenProp) => {
             await api.delete(`users/${id}`);
 
             setUser(null);
+
+            setMenu(false);
             setShowModal("");
 
             localStorage.removeItem("@ContactBook: TOKEN");
@@ -153,7 +155,7 @@ const UserProvider = ({ children }: iChildrenProp) => {
     const logout = () => {
         setUser(null);
         setLoggedUser(null);
-        setMenu(!menu);
+        setMenu(false);
 
         localStorage.removeItem("@ContactBook: TOKEN");
         localStorage.removeItem("@ContactBook: SERIALUSER");
@@ -168,6 +170,8 @@ const UserProvider = ({ children }: iChildrenProp) => {
             value={{
                 user,
                 setUser,
+                personalInfo,
+                setPersonalInfo,
                 loggedUser,
                 setLoggedUser,
                 signUp,
@@ -178,18 +182,6 @@ const UserProvider = ({ children }: iChildrenProp) => {
             }}
         >
             {children}
-            <ToastContainer
-                position="top-right"
-                autoClose={5000}
-                hideProgressBar={false}
-                newestOnTop={false}
-                closeOnClick
-                rtl={false}
-                pauseOnFocusLoss
-                draggable
-                pauseOnHover
-                theme="light"
-            />
         </UserContext.Provider>
     );
 };
