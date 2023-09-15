@@ -1,104 +1,184 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import { createContext } from "react";
-import { iUserProviderProps } from "./interfaces";
-import { iUserContextProps } from "./interfaces";
-import { tUserReq, tUserUpdate } from "../../interfaces/user.interfaces";
-
+/* eslint-disable react-hooks/exhaustive-deps */
+import { createContext, useContext, useEffect, useState } from "react";
+import { iUserContext } from "./types";
 import { api } from "../../services/api";
-import { useState } from "react";
-
+import { iLogin, iUser, iUserUpdate } from "../../interfaces/user.interfaces";
 import { useNavigate } from "react-router-dom";
+import { iChildrenProp } from "../../interfaces/children.interfaces";
 
-const UserContext = createContext({} as iUserContextProps);
+import { toast } from "react-toastify";
+import { MenuContext } from "../MenuContext";
+import { useModal } from "../../hooks/modalHook";
 
-const UserProvider = ({ children }: iUserProviderProps) => {
-    const [status, setStatus] = useState<"none" | "success" | "error">("none");
-    const [errorMessage, setErrorMessage] = useState<string>("");
-    const [isLoading, setIsLoading] = useState<boolean>(false);
+const UserContext = createContext({} as iUserContext);
 
-    const [editUserModal, setEditUserModal] = useState<boolean>(false);
-    const [_, setUpdtedUser] = useState<tUserUpdate | null>(null);
+const UserProvider = ({ children }: iChildrenProp) => {
+    const [user, setUser] = useState<iUser | null>(null);
+    const [loggedUser, setLoggedUser] = useState<iUser | null>(null);
+    const [personalInfo, setPersonalInfo] = useState<iUserUpdate>();
+
+    const { setMenu } = useContext(MenuContext);
+    const { setShowModal } = useModal();
 
     const navigate = useNavigate();
 
-    const token = localStorage.getItem("@contact-book: accessToken");
-    const userId = localStorage.getItem("@contact-book: userId");
+    const token = localStorage.getItem("@ContactBook: TOKEN");
 
-    const disableStatus = () => {
-        setIsLoading(false);
-        setTimeout(() => {
-            setStatus("none");
-        }, 3000);
+    useEffect(() => {
+        const loadUser = async () => {
+            if (token) {
+                localStorage.getItem("@ContactBook: SERIALUSER");
+                try {
+                    api.defaults.headers.common.authorization = `Bearer ${token}`;
+                    const response = await api.get("/users");
+
+                    setLoggedUser(response.data);
+                    setUser(response.data.id);
+                } catch (err) {
+                    toast.error("Erro. Por favor verifique suas informações.");
+                }
+            } else {
+                navigate("/");
+            }
+        };
+        loadUser();
+    }, [user]);
+
+    const signUp = async (data: iUser) => {
+        try {
+            const response = await api.post("/users", data);
+            setUser(response.data);
+
+            toast.success(
+                `Cadastro realizado com sucesso, ${response.data.fullname}!`
+            );
+
+            navigate("/");
+        } catch (err) {
+            console.log(err);
+
+            toast.error(
+                "Usuário já cadastrado. Por favor, confira suas informações!"
+            );
+        }
     };
 
-    const registerUser = async (data: tUserReq) => {
-        setIsLoading(true);
+    const login = async (data: iLogin) => {
         try {
-            await api.post("/users/register", data);
-            setIsLoading(false);
-            setStatus("success");
+            const response = await api.post("/login", data);
 
-            navigate("/login");
-        } catch (err: any) {
+            const { token } = response.data;
+
+            setUser(response.data);
+            localStorage.setItem("@ContactBook: TOKEN", token);
+
+            api.defaults.headers.common.authorization = `Bearer ${token}`;
+
+            navigate("/dashboard");
+
+            await retrieveUser();
+
+            toast.success(`Bem vindo de volta!`);
+        } catch (err) {
             console.log(err);
-            if (err.response.detail === "Email already exists") {
-                setErrorMessage("Este email já está cadastrado");
-            }
-            setStatus("error");
-        } finally {
-            disableStatus();
+
+            toast.error(
+                "Por favor, verifique suas informações e tente novamente!"
+            );
+        }
+    };
+
+    const retrieveUser = async () => {
+        try {
+            const response = await api.get("/users");
+
+            api.defaults.headers.common.authorization = `Bearer ${token}`;
+
+            localStorage.setItem("@ContactBook: SERIALUSER", response.data.id);
+
+            setUser(response.data.id);
+        } catch (err) {
+            console.log(err);
+
+            toast.error("Usuário não cadastrado!");
+        }
+    };
+
+    const patchUser = async (data: iUserUpdate) => {
+        const id = localStorage.getItem("@ContactBook: SERIALUSER");
+
+        try {
+            const response = await api.patch(`/users/${id}`, data, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+
+            setUser(response.data);
+            setShowModal("");
+
+            toast.success("Perfil atualizado!");
+        } catch (err) {
+            console.log(err);
+
+            toast.error(
+                "Não foi possível atualizar o perfil. Verifique as informações e tente novamente!"
+            );
         }
     };
 
     const deleteUser = async () => {
         try {
-            await api.delete(`/users/${Number(userId)}`, {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-            });
-            navigate("/login");
-            localStorage.removeItem("@contact-book: accessToken");
-            localStorage.removeItem("@contact-book: userId");
-        } catch (err: unknown) {
+            const id = localStorage.getItem("@ContactBook: SERIALUSER");
+            await api.delete(`users/${id}`);
+
+            setUser(null);
+
+            setMenu(false);
+            setShowModal("");
+
+            localStorage.removeItem("@ContactBook: TOKEN");
+            localStorage.removeItem("@ContactBook: SERIALUSER");
+
+            navigate("/");
+
+            toast.success("Usuário deletado com sucesso!");
+        } catch (err) {
             console.log(err);
+
+            toast.error(
+                "Não foi possível realizar a operação. Verifique suas informações e tente novamente!"
+            );
         }
     };
 
-    const updateUser = async (data: tUserUpdate) => {
-        try {
-            const response = await api.patch(`/users/${Number(userId)}`, data, {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-            });
+    const logout = () => {
+        setUser(null);
+        setLoggedUser(null);
+        setMenu(false);
 
-            setUpdtedUser(response.data);
-            setEditUserModal(!editUserModal);
+        localStorage.removeItem("@ContactBook: TOKEN");
+        localStorage.removeItem("@ContactBook: SERIALUSER");
 
-            window.location.reload();
-        } catch (err: unknown) {
-            console.log(err);
-        }
+        navigate("/");
+
+        toast.success("Logout feito com sucesso!");
     };
 
     return (
         <UserContext.Provider
             value={{
-                registerUser,
-                isLoading,
-                setIsLoading,
-                status,
-                setStatus,
-                errorMessage,
-                setErrorMessage,
-                disableStatus,
+                user,
+                setUser,
+                personalInfo,
+                setPersonalInfo,
+                loggedUser,
+                setLoggedUser,
+                signUp,
+                login,
+                logout,
+                patchUser,
                 deleteUser,
-                editUserModal,
-                setEditUserModal,
-                updateUser,
-                setUpdtedUser,
             }}
         >
             {children}

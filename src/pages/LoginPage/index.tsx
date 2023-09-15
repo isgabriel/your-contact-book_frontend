@@ -1,13 +1,32 @@
+import { useContext } from "react";
 import { FormLogin } from "../../components/Forms/FormLogin";
 
-import "../../sass/style.scss";
+import styles from "./styles.module.scss";
+import { MenuContext } from "../../context/MenuContext";
+import { Menu } from "../../components/Menu";
+import { Header } from "../../components/Header";
+import { MenuHamburguer } from "../../components/Header/MenuHamburguer";
+import { Navbar } from "../../components/Header/Navbar";
+import { NoticeAboutApi } from "../../components/NoticeAboutApi";
 
 const LoginPage = () => {
+    const { menu } = useContext(MenuContext);
+
     return (
         <>
-            <header>
-                <h1 className="title mt-2">Your Contact Book</h1>
-            </header>
+            {menu && <Menu />}
+            <NoticeAboutApi />
+            <Header>
+                <MenuHamburguer />
+                <div>
+                    <p>icon</p>
+
+                    <Navbar />
+                </div>
+            </Header>
+
+            <span className={styles.bgImg}></span>
+
             <FormLogin />
         </>
     );

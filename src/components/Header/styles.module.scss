@@ -1,0 +1,8 @@
+@use "/src/sass/globals.scss" as *;
+
+.headerLogged {
+    @include headerBasic();
+}
+.headerNotLogged {
+    @include headerBasic();
+}

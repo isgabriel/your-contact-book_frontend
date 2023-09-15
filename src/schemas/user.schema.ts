@@ -1,64 +1,48 @@
 import z from "zod";
-import { phoneRegex } from "./contact.schema";
-import { noUserContactSchema } from "./contact.schema";
 
 const userSchema = z.object({
-    id: z.number(),
-    name: z
+    email: z
         .string()
-        .max(126, "O seu nome deve conter no máximo 256 caracteres")
-        .min(3, "O nome de usuário deve conter no minimo 3 caracteres"),
-    email: z.string().email().max(126),
+        .email({ message: "Email é um campo obrigatório!" })
+        .max(60, { message: "Quantidade máxima de caracteres é 60!" })
+        .nonempty({ message: "Deve ser um Email válido!" }),
+    fullname: z
+        .string()
+        .min(1, { message: "Nome é um campo obrigatório!" })
+        .max(60, { message: "Quantidade máxima de caracteres é 60!" })
+        .nonempty({ message: "Nome é obrigatório!" }),
+    telephone: z
+        .string()
+        .min(11, { message: "Telefone deve ter 11 caracteres!" })
+        .max(11, { message: "Telefone deve ter 11 caracteres!" })
+        .nonempty({ message: "Telefone é um campo obrigatório!" }),
+
     password: z
         .string()
-        .min(6, "A senha deve ter no mínimo 6 caracteres")
-        .max(126)
-        .regex(
-            /^(?=.*[a-z])(?=.*[A-Z])/g,
-            "A senha deve conter pelo menos uma letra maiúscula e uma letra minúscula"
-        ),
-    phone: z
-        .string()
-        .max(20)
-        .regex(phoneRegex, "Invalid phone number. Example: +00 00 000000000"),
-    registerDate: z.string(),
-    contacts: z.array(noUserContactSchema),
+        .regex(new RegExp(".*[A-Z].*"), {
+            message: "Use ao menos uma letra maiúscula",
+        })
+        .regex(new RegExp(".*[a-z].*"), {
+            message: "Use ao menos uma letra minúscula",
+        })
+        .regex(new RegExp(".*\\d.*"), { message: "Use ao menos um número" })
+        .regex(new RegExp(".*[`~<>?,./!@#$%^&*()\\-_+=\"'|{}\\[\\];:\\\\].*"), {
+            message: "Use ao menos um caractere especial",
+        })
+        .min(8, { message: "Senha deve ter ao menos 8 caracteres!" })
+        .max(120, { message: "Senha só pode ter até 120 caracteres!" }),
 });
 
-const userReqSchema = userSchema
-    .omit({ id: true, registerDate: true, contacts: true })
-    .extend({ confirmPassword: z.string().max(256) })
-    .refine((data) => data.password === data.confirmPassword, {
-        message: "As senhas devem coincidir",
-        path: ["confirmPassword"],
-    });
-
-const userLoginSchema = userSchema
-    .omit({
-        id: true,
-        registerDate: true,
-        contacts: true,
-        name: true,
-        phone: true,
-        password: true,
-    })
-    .extend({ password: z.string() });
-
-const userUpdateSchema = userSchema
-    .omit({ id: true, registerDate: true, contacts: true })
-    .partial();
-
-const noPasswordUserSchema = userSchema.omit({ password: true });
-
-const noPasswordNoContactsUserSchema = noPasswordUserSchema.omit({
-    contacts: true,
+const userLoginSchema = z.object({
+    email: z.string().nonempty({ message: "Campo obrigatório!" }),
+    password: z.string().nonempty({ message: "Campo obrigatório!" }),
 });
 
-export {
-    userSchema,
-    userReqSchema,
-    noPasswordUserSchema,
-    noPasswordNoContactsUserSchema,
-    userUpdateSchema,
-    userLoginSchema,
-};
+const userUpdateSchema = z.object({
+    fullname: z.string().optional(),
+    email: z.string().optional(),
+    telephone: z.string().optional(),
+    password: z.string().optional(),
+});
+
+export { userSchema, userLoginSchema, userUpdateSchema };

@@ -1,0 +1,9 @@
+@use "/src/sass/globals.scss" as *;
+
+.formSectionField {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+
+    color: $placeholder-color;
+}

@@ -1,27 +1,26 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { InputField } from "../../../components/Forms/InputField";
 
 import { useForm } from "react-hook-form";
-import { userReqSchema } from "../../../schemas/user.schema";
+import { userSchema } from "../../../schemas/user.schema";
 
 import { useContext } from "react";
 import { UserContext } from "../../../context/UserContext";
-import { ContactContext } from "../../../context/ContactContext";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { LabelField } from "../LabelField";
 import { FormSectionField } from "../FormSectionField";
-import { RedirectToOtherPage } from "../RedirectToOtherPage";
 import { useNavigate } from "react-router-dom";
 
-import "../forms.scss";
 import { ErrorMessage } from "../ErrorMessage";
-import { Button } from "../Button";
+import { Button } from "../../Button";
+
+import { iUser } from "../../../interfaces/user.interfaces";
+
+import FormStyled from "../forms.module.scss";
+import ButtonStyled from "../../Button/styles.module.scss";
 
 const FormRegister = () => {
-    const { phoneNumber, setPhoneNumber, handlePhoneNumberChange } =
-        useContext(ContactContext);
-    const { registerUser } = useContext(UserContext);
+    const { signUp } = useContext(UserContext);
 
     const navigate = useNavigate();
 
@@ -29,137 +28,106 @@ const FormRegister = () => {
         register,
         handleSubmit,
         formState: { errors },
-    } = useForm({
-        resolver: zodResolver(userReqSchema),
-        mode: "all",
-        defaultValues: {
-            name: "",
-            email: "",
-            password: "",
-            confirmPassword: "",
-            phone: "",
-        },
-    });
+    } = useForm<iUser>({ resolver: zodResolver(userSchema) });
 
-    const onSubmit = (data: any) => {
-        registerUser(data);
-        setPhoneNumber("");
+    const onSubmit = (data: iUser) => {
+        signUp(data);
     };
 
     const goToLogin = () => {
         navigate("/login");
     };
     return (
-        <form onSubmit={handleSubmit(onSubmit)} className="mt-4 form-group">
-            <h3 className="mb-3 subtitle">Cadastro</h3>
-            <div className="form-div">
-                <FormSectionField>
-                    <LabelField placeholder="Nome" />
-                    <InputField
-                        required={true}
-                        errors={errors.name?.message}
-                        register={register("name")}
-                        placeholder="Digite seu nome..."
-                    />
-                    {errors.name && (
-                        <ErrorMessage
-                            className="error-msg"
-                            message={errors.name.message}
+        <form
+            onSubmit={handleSubmit(onSubmit)}
+            className={FormStyled.formGroup}
+        >
+            <div className={FormStyled.formDiv}>
+                <h3 className={FormStyled.subtitle}>
+                    Não perca tempo e <span>junte-se a comunidade </span>
+                    Contact Book!
+                </h3>
+                <div className={FormStyled.formInputsDiv}>
+                    <FormSectionField>
+                        <LabelField placeholder="Nome" />
+                        <InputField
+                            errors={errors.fullname?.message}
+                            register={register("fullname")}
+                            placeholder="Digite seu nome..."
                         />
-                    )}
-                </FormSectionField>
+                        {errors.fullname && (
+                            <ErrorMessage
+                                className="error-msg"
+                                message={errors.fullname.message}
+                            />
+                        )}
+                    </FormSectionField>
 
-                <FormSectionField>
-                    <LabelField placeholder="Email" />
-                    <InputField
-                        required={true}
-                        errors={errors.email?.message}
-                        register={register("email")}
-                        placeholder="Digite seu email..."
-                    />
-                    {errors.email && (
-                        <ErrorMessage
-                            className="error-msg"
-                            message={errors.email.message}
+                    <FormSectionField>
+                        <LabelField placeholder="Email" />
+                        <InputField
+                            errors={errors.email?.message}
+                            register={register("email")}
+                            placeholder="Digite seu email..."
                         />
-                    )}
-                </FormSectionField>
+                        {errors.email && (
+                            <ErrorMessage
+                                className="error-msg"
+                                message={errors.email.message}
+                            />
+                        )}
+                    </FormSectionField>
 
-                <FormSectionField>
-                    <LabelField placeholder="Senha" />
+                    <FormSectionField>
+                        <LabelField placeholder="Senha" />
 
-                    <InputField
-                        required={true}
-                        type="password"
-                        errors={errors.password?.message}
-                        register={register("password")}
-                        placeholder="Digite sua senha..."
-                    />
-
-                    {errors.password && (
-                        <ErrorMessage
-                            className="error-msg"
-                            message={errors.password.message}
+                        <InputField
+                            type="password"
+                            errors={errors.password?.message}
+                            register={register("password")}
+                            placeholder="Digite sua senha..."
                         />
-                    )}
-                </FormSectionField>
 
-                <FormSectionField>
-                    <LabelField placeholder="Confirmar senha" />
+                        {errors.password && (
+                            <ErrorMessage
+                                className="error-msg"
+                                message={errors.password.message}
+                            />
+                        )}
+                    </FormSectionField>
 
-                    <InputField
-                        required={true}
-                        type="password"
-                        errors={errors.confirmPassword?.message}
-                        register={register("confirmPassword")}
-                        placeholder="Repita a senha..."
-                    />
+                    <FormSectionField>
+                        <LabelField placeholder="Telefone" />
 
-                    {errors.confirmPassword && (
-                        <ErrorMessage
-                            className="error-msg"
-                            message={errors.confirmPassword.message}
+                        <InputField
+                            errors={errors.telephone?.message}
+                            register={register("telephone")}
+                            placeholder="Digite seu telefone..."
                         />
-                    )}
-                </FormSectionField>
 
-                <FormSectionField>
-                    <LabelField placeholder="Telefone" />
+                        {errors.telephone && (
+                            <ErrorMessage
+                                className="error-msg"
+                                message={errors.telephone.message}
+                            />
+                        )}
+                    </FormSectionField>
+                </div>
 
-                    <InputField
-                        required={true}
-                        maxLength={16}
-                        onChange={handlePhoneNumberChange}
-                        value={phoneNumber}
-                        errors={errors.phone?.message}
-                        register={register("phone")}
-                        placeholder="Digite seu telefone..."
+                <div className={FormStyled.formBtns}>
+                    <Button
+                        className={ButtonStyled.primaryButton}
+                        type="submit"
+                        text="Cadastrar"
                     />
 
-                    {errors.phone && (
-                        <ErrorMessage
-                            className="error-msg"
-                            message={errors.phone.message}
-                        />
-                    )}
-                </FormSectionField>
-            </div>
-
-            <div className="form-btns">
-                <Button
-                    buttonClass="mt-3 mb-3 purple-btn button-common"
-                    buttonType="submit"
-                    buttonText="Cadastrar"
-                />
-                <h4 className="text-center">OU</h4>
-                <RedirectToOtherPage>
                     <Button
                         onClick={goToLogin}
-                        buttonClass="mt-3 blue-btn button-common"
-                        buttonType="button"
-                        buttonText="Ir para Login"
+                        className={ButtonStyled.secondaryButton}
+                        type="button"
+                        text="Ir para Login"
                     />
-                </RedirectToOtherPage>
+                </div>
             </div>
         </form>
     );
