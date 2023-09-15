@@ -8,6 +8,7 @@ import { MenuContext } from "../../context/MenuContext";
 import { UserContext } from "../../context/UserContext";
 
 import { Navbar } from "../Header/Navbar";
+import { Logo } from "../Logo";
 
 const Menu = () => {
     const { menu, handleMenu } = useContext(MenuContext);
@@ -33,6 +34,9 @@ const Menu = () => {
                             </Link>
                         </>
                     )}
+                    <div className={styles.divLogo}>
+                        <Logo />
+                    </div>
                 </div>
             </div>
         </section>

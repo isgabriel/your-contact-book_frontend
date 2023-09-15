@@ -1,5 +1,3 @@
-import copyImg from "../../assets/copy-button.svg";
-
 import { UserIcon } from "../UserIcon";
 
 import { iContact } from "../../interfaces/contact.interfaces";
@@ -8,6 +6,7 @@ import { useModal } from "../../hooks/modalHook";
 import { useContext } from "react";
 import { ContactContext } from "../../context/ContactContext";
 
+import copyBtn from "../../assets/copy-button.svg";
 import styles from "./styles.module.scss";
 import { toast } from "react-toastify";
 
@@ -61,7 +60,7 @@ export const ContactCard = ({ contact }: iContactCardProps) => {
                     onClick={handleCopyEmail}
                 >
                     <button className={styles.buttonCopy}>
-                        <img src={copyImg} className={styles.copyImg} />
+                        <img src={copyBtn} className={styles.copyImg} />
                     </button>
                     <span>{contact.email}</span>
                 </div>
@@ -70,7 +69,7 @@ export const ContactCard = ({ contact }: iContactCardProps) => {
                     onClick={handleCopyPhone}
                 >
                     <button className={styles.buttonCopy}>
-                        <img src={copyImg} className={styles.copyImg} />
+                        <img src={copyBtn} className={styles.copyImg} />
                     </button>
                     <span>{contact.telephone}</span>
                 </div>

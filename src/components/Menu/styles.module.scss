@@ -42,3 +42,13 @@
         right: 25%;
     }
 }
+.divLogo {
+    display: flex;
+    position: absolute;
+    bottom: 30px;
+    right: 25%;
+
+    @media (min-width: 769px) {
+        display: none;
+    }
+}

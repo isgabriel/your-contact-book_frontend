@@ -9,6 +9,7 @@ import { Navbar } from "../../components/Header/Navbar";
 
 import styles from "./styles.module.scss";
 import { NoticeAboutApi } from "../../components/NoticeAboutApi";
+import { Logo } from "../../components/Logo";
 
 const RegisterPage = () => {
     const { menu } = useContext(MenuContext);
@@ -20,7 +21,7 @@ const RegisterPage = () => {
             <Header>
                 <MenuHamburguer />
                 <div>
-                    <p>icon</p>
+                    <Logo />
 
                     <Navbar />
                 </div>

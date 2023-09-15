@@ -1,10 +1,11 @@
 import { useContext } from "react";
 
-import styles from "./styles.module.scss";
 import { Link } from "react-router-dom";
 import { UserContext } from "../../../context/UserContext";
 import { MenuContext } from "../../../context/MenuContext";
 import { useModal } from "../../../hooks/modalHook";
+
+import styles from "./styles.module.scss";
 
 const Navbar = () => {
     const { loggedUser, logout } = useContext(UserContext);

@@ -8,6 +8,7 @@ import { Header } from "../../components/Header";
 import { MenuHamburguer } from "../../components/Header/MenuHamburguer";
 import { Navbar } from "../../components/Header/Navbar";
 import { NoticeAboutApi } from "../../components/NoticeAboutApi";
+import { Logo } from "../../components/Logo";
 
 const LoginPage = () => {
     const { menu } = useContext(MenuContext);
@@ -19,7 +20,7 @@ const LoginPage = () => {
             <Header>
                 <MenuHamburguer />
                 <div>
-                    <p>icon</p>
+                    <Logo />
 
                     <Navbar />
                 </div>
